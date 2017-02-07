@@ -4,11 +4,17 @@ source ~/.zshrc
 
 eval $(ssh-agent)
 
+lxpolkit &
+
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 
+# Start Thinkpad OSD daemon
+if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
+	/usr/bin/tpb -d
+fi
+
 xsetroot -cursor_name left_ptr &
-setxkbmap -model pc105 -layout us -option terminate:ctrl_alt_bksp -option ctrl:nocaps
 xbindkeys &
 
 export TERMINAL='urxvt'
@@ -20,9 +26,10 @@ uim-xim &
 uim-toolbar-gtk-systray &
 
 nm-applet &
+blueman-applet &
 megasync &
 volumeicon &
-compton &
+compton -b &
 #shutter --min_at_startup &
-dropbox &
+#dropbox &
 nitrogen --restore &

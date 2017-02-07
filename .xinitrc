@@ -20,7 +20,7 @@ source ~/.xprofile
 
 #For i3
 source ~/.i3rc
-exec i3 -V >> ~/.config/i3/i3log-$(date +'%F-%k-%M-%S') 2>&1
+exec i3 -V >> ~/.config/i3/log/i3log-$(date +'%F-%k-%M-%S') 2>&1
 
 #For Xmonad
 #source ~/.xmonadrc

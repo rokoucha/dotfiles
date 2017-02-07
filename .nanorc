@@ -39,7 +39,7 @@ set autoindent
 ## paragraphs.  They cannot contain blank characters.  Only closing
 ## punctuation, optionally followed by closing brackets, can end
 ## sentences.
-set brackets ""')>]}"
+# set brackets ""')>]}"
 
 ## Do case-sensitive searches by default.
 # set casesensitive
@@ -58,7 +58,7 @@ set brackets ""')>]}"
 # set fill -8
 
 ## Remember the used search/replace strings for the next session.
-# set historylog
+set historylog
 
 ## Make the justify command kill whitespace at the end of lines.
 # set justifytrim
@@ -99,7 +99,7 @@ set multibuffer
 # set nonewlines
 
 ## Don't wrap text at all.
-# set nowrap
+set nowrap
 
 ## Set operating directory.  nano will not read or write files outside
 ## this directory and its subdirectories.  Also, the current directory
@@ -128,7 +128,7 @@ set multibuffer
 ## This is an extended regular expression if your system supports them,
 ## otherwise a literal string.
 ## If you have extended regular expression support, the default is:
-set quotestr "^([ 	]*[#:>\|}])+"
+# set quotestr "^([ 	]*[#:>\|}])+"
 ## Otherwise:
 # set quotestr "> "
 
@@ -143,7 +143,7 @@ set quotestr "^([ 	]*[#:>\|}])+"
 
 ## Put the cursor on the highlighted item in the file browser;
 ## useful for people who use a braille display.
-# set showcursor
+set showcursor
 
 ## Make the Home key smarter.  When Home is pressed anywhere but at the
 ## very beginning of non-whitespace characters on a line, the cursor
@@ -153,7 +153,7 @@ set quotestr "^([ 	]*[#:>\|}])+"
 # set smarthome
 
 ## Use smooth scrolling as the default.
-# set smooth
+set smooth
 
 ## Enable soft line wrapping (AKA full-line display).
 # set softwrap
@@ -198,7 +198,7 @@ set whitespace "»·"
 ## Paint the interface elements of nano.
 ## These are examples; by default there are no colors.
 # set titlecolor brightwhite,blue
-# set numbercolor cyan
+set numbercolor cyan
 # set statuscolor brightwhite,green
 # set keycolor green
 # set functioncolor yellow

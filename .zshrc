@@ -19,7 +19,3 @@ setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#])}"}
 setopt HIST_IGNORE_DUPS
 
 PROMPT='[%F{magenta}%B%n%b%f@%F{blue}%U%m%u%f]%F{green}%d%f%#'
-
-# For termite
-eval $(dircolors ~/.dircolors)
-. /etc/profile.d/vte.sh
