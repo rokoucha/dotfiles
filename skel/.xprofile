@@ -1,0 +1,6 @@
+##########################
+#.xprofile for `hostname`#
+# atnanasi/dotfiles      #
+##########################
+
+export TERMINAL='urxvt'

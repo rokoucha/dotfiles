@@ -1,3 +1,8 @@
+#####################################
+#.config/i3/config - settings for i3#
+# atnanasi/dotfiles                 #
+#####################################
+
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -184,3 +189,5 @@ bar {
 # Please remove the following exec line:
 #######################################################################
 exec i3-config-wizard
+
+###HOSTCONF###

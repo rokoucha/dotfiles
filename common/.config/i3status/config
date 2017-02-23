@@ -1,3 +1,8 @@
+#################################################
+#.config/i3status/config - settings for i3status#
+# atnanasi/dotfiles                             #
+#################################################
+
 # i3status configuration file.
 # see "man i3status" for documentation.
 
@@ -45,3 +50,5 @@ load {
 disk "/" {
         format = "%avail"
 }
+
+###HOSTCONF###

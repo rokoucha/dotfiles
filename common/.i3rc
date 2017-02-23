@@ -1,35 +1,27 @@
-#For i3
-source ~/.zshenv
-source ~/.zshrc
+#################################
+#.i3rc - startup settings for i3#
+# atnanasi/dotfiles             #
+#################################
 
+# start ssh-agent
 eval $(ssh-agent)
 
+# for polkit authications
 lxpolkit &
 
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
-
-# Start Thinkpad OSD daemon
-if [ -x /usr/bin/tpb ] &&  [ -w /dev/nvram ] && [ -r /dev/nvram ]; then
-	/usr/bin/tpb -d
-fi
-
+# set mouse cursor
 xsetroot -cursor_name left_ptr &
+
+# start keyboard shortcuts manager
 xbindkeys &
 
-export TERMINAL='urxvt'
-
-export GTK_IM_MODULE='uim'
-export QT_IM_MODULE='uim'
-export XMODIFIERS='@im=uim'
-uim-xim &
-uim-toolbar-gtk-systray &
-
+# start applet for NetworkManager
 nm-applet &
-blueman-applet &
-megasync &
+
+# start applet for volume change and keyboard shortcuts
 volumeicon &
-compton -b &
-#shutter --min_at_startup &
-#dropbox &
+
+# start wallpaper manager
 nitrogen --restore &
+
+###HOSTCONF###

@@ -1,4 +1,10 @@
 #!/bin/sh
+
+###############################
+#.xinitrc - executed by startx#
+# atnanasi/dotfiles           #
+###############################
+
 #
 # ~/.xinitrc
 #
@@ -12,18 +18,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 LANG=ja_JP.UTF-8
-source ~/.xprofile
 
-#For awesome
-#source ~/.awesomerc
-#exec awesome
-
-#For i3
-source ~/.i3rc
-exec i3 -V >> ~/.config/i3/log/i3log-$(date +'%F-%k-%M-%S') 2>&1
-
-#For Xmonad
-#source ~/.xmonadrc
-#exec xmonad
+###HOSTCONF###
 
 LANG=en_US.UTF-8

@@ -1,0 +1,20 @@
+! ############################
+! #.Xresources for `hostname`#
+! # atnanasi/dotfiles        #
+! ############################
+
+!URxvt settings
+! font and fontsize
+!URxvt.font: xft:NasuM:pixelsize=20:antialias=true
+
+! you need set letterspace if you changed font
+!URxvt.letterSpace: -8
+
+! for OnTheSpot
+!URxvt.inputMethod: fcitx
+
+! text color
+!URxvt.foreground: rgba:eeee/eeee/eeee/ffff
+
+! background color(for sukesuke)
+!URxvt.background: rgba 1111/1111/1111/dddd
