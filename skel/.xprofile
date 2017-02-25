@@ -3,4 +3,4 @@
 # atnanasi/dotfiles      #
 ##########################
 
-export TERMINAL='urxvt'
+export TERMINAL='terminator'
