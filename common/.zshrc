@@ -29,4 +29,14 @@ setopt HIST_IGNORE_DUPS
 # prompt text
 PROMPT='[%F{magenta}%B%n%b%f@%F{blue}%U%m%u%f]%F{green}%d%f%#'
 
+# aliases
+# ls aliases
+alias ll="ls -la"
+alias lf="ls -Fa"
+
+# rm/cp/mv
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+
 ###HOSTCONF###
