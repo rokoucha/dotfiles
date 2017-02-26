@@ -35,11 +35,12 @@ function configure( ) {
 }
 
 # clone用URLの生成
-function make_cloneurl( $scheme ,$server ,$username ,$repository ) {
-	case "$scheme" in
-		"git" ) echo "git@$server:$username/$repository.git" ;;
-		"https" ) echo "https://$server/$username/$repository.git" ;;
-		* ) echo "illegal scheme: $scheme"; exit 1 ;;
+# scheme,server,username,repository
+function make_cloneurl( ) {
+	case "$1" in
+		"git" ) echo "git@$2:$3/$4.git" ;;
+		"https" ) echo "https://$2/$3/$4.git" ;;
+		* ) echo "illegal scheme: $1"; exit 1 ;;
 	esac
 }
 
@@ -69,8 +70,8 @@ function clone( ) {
 }
 
 # ###HOSTCONF###を実際のファイルに置換する
-function config_merger( $base_conf, $merge_conf) {
-	echo ${base_conf//"###HOSTCONF###"/"`echo $merge_conf`"}
+function config_merger( ) {
+	echo ${1//"###HOSTCONF###"/"`echo $2`"}
 }
 
 init
