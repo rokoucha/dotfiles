@@ -1,0 +1,27 @@
+#For Awesome & i3
+source ~/.zshenv
+source ~/.zshrc
+
+eval $(ssh-agent)
+
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
+xsetroot -cursor_name left_ptr &
+setxkbmap -model pc105 -layout us -option terminate:ctrl_alt_bksp -option ctrl:nocaps
+xbindkeys &
+xmodmap -e "keysym Muhenkan=SuperL" &
+
+export GTK_IM_MODULE='uim'
+export QT_IM_MODULE='uim'
+export XMODIFIERS='@im=uim'
+uim-xim &
+uim-toolbar-gtk-systray &
+
+nm-applet &
+megasync &
+volumeicon &
+compton &
+#shutter --min_at_startup &
+dropbox &
+nitrogen --restore &
