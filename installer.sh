@@ -69,9 +69,4 @@ function clone( ) {
 	git clone `make_clone_url $git_scheme $git_server_url $git_username $git_repository` $dotfiles_path
 }
 
-# ###HOSTCONF###を実際のファイルに置換する
-function config_merger( ) {
-	echo ${1//"###HOSTCONF###"/"`echo $2`"}
-}
-
 init
