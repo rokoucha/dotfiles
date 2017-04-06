@@ -21,6 +21,9 @@ function configure( ) {
 	# dotfilesを安置するパス
 	dotfiles_path=$HOME/test/dotfiles
 
+	# 古いdotfilesを安置するパス
+	old_dotfiles_path=$HOME/test/old-dotfiles/$(date +"%Y-%m-%d-%H-%M-%S")
+
 	# Gitのスキーム [git,https]
 	git_scheme="git"
 
@@ -66,9 +69,14 @@ EOT
 
 # GitHubからpullする
 function clone( ) {
-	git clone `make_cloneurl $git_scheme $git_server_url $git_username $git_repository` $dotfiles_path
+	if [ -d $dotfiles_path ] ;then 
+		git pull --rebase origin master
+	else
+		git clone `make_cloneurl $git_scheme $git_server_url $git_username $git_repository` $dotfiles_path
+	fi
 }
 
+# 初期化
 init
 
 clone
@@ -76,13 +84,27 @@ clone
 source $dotfiles_path/install/pre.sh
 
 for file in `\find $dotfiles_path/dotroot -type f`; do
-	$dotfile=${file#$dotfiles_path/dotroot/}
-	$dotpath=$(dirname "$dotfile")
+	dotfile=${file#$dotfiles_path/dotroot/}
+	dotpath=$(dirname "$dotfile")
 
-	mkdir -p "$intall_path/$dotpath"
-	ln -s "$file" "$install_path/$dotfile"
 	echo "Install $dotfile to $install_path/$dotfile"
+	mkdir -p "$install_path/$dotpath"
+
+	if [ -L $install_path/$dotfile ] ;then
+		# もし、dotfileがシンボリックリンクなら消す
+		rm "$install_path/$dotfile"
+	elif [ -f $install_path/$dotfile ] ;then
+		# もし、dotfileが既に存在するならバックアップ送り
+		mkdir -p $old_dotfiles_path
+		mv "$install_path/$dotfile" "$old_dotfiles_path/$dotfile"
+	fi
+
+	# 実際にリンクを張る
+	ln -s "$file" "$install_path/$dotfile"
 done
 
 source $dotfiles_path/install/post.sh
+
+# Welcome to the New World!!!!
+source $dotfiles_path/install/newshell.sh
 
