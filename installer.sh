@@ -16,10 +16,10 @@ function init( ) {
 # 設定
 function configure( ) {
 	# インストール先のパス
-	install_path=$HOME
+	install_path=$HOME/test
 
 	# dotfilesを安置するパス
-	dotfiles_path=$HOME/dotfiles
+	dotfiles_path=$HOME/test/dotfiles
 
 	# Gitのスキーム [git,https]
 	git_scheme="git"
@@ -66,7 +66,23 @@ EOT
 
 # GitHubからpullする
 function clone( ) {
-	git clone `make_clone_url $git_scheme $git_server_url $git_username $git_repository` $dotfiles_path
+	git clone `make_cloneurl $git_scheme $git_server_url $git_username $git_repository` $dotfiles_path
 }
 
 init
+
+clone
+
+source $dotfiles_path/install/pre.sh
+
+for file in `\find $dotfiles_path/dotroot -type f`; do
+	$dotfile=${file#$dotfiles_path/dotroot/}
+	$dotpath=$(dirname "$dotfile")
+
+	mkdir -p "$intall_path/$dotpath"
+	ln -s "$file" "$install_path/$dotfile"
+	echo "Install $dotfile to $install_path/$dotfile"
+done
+
+source $dotfiles_path/install/post.sh
+
