@@ -16,13 +16,13 @@ function init( ) {
 # 設定
 function configure( ) {
 	# インストール先のパス
-	install_path=$HOME/test
+	install_path=$HOME
 
 	# dotfilesを安置するパス
-	dotfiles_path=$HOME/test/dotfiles
+	dotfiles_path=$HOME/dotfiles
 
 	# 古いdotfilesを安置するパス
-	old_dotfiles_path=$HOME/test/old-dotfiles/$(date +"%Y-%m-%d-%H-%M-%S")
+	old_dotfiles_path=$HOME/old-dotfiles/$(date +"%Y-%m-%d-%H-%M-%S")
 
 	# Gitのスキーム [git,https]
 	git_scheme="git"
