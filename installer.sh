@@ -25,7 +25,7 @@ function configure( ) {
 	old_dotfiles_path=$HOME/old-dotfiles/$(date +"%Y-%m-%d-%H-%M-%S")
 
 	# Gitのスキーム [git,https]
-	git_scheme="git"
+	git_scheme="https"
 
 	# Gitのサーバー
 	git_server_url="github.com"
