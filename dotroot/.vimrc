@@ -1,3 +1,8 @@
+" Fix encode
+set encoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+set fileformats=unix,dos,mac
+
 " For vim-plug
 if has('vim_starting')
   set rtp+=~/.vim/plugged/vim-plug
