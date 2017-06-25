@@ -1,0 +1,1 @@
+/home/atnanasi/.config/fisherman/ghq/completions/ghq.fish

@@ -1,0 +1,1 @@
+/home/atnanasi/.config/fisherman/await/functions/await.fish

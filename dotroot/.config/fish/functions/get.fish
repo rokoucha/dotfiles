@@ -1,0 +1,1 @@
+/home/atnanasi/.config/fisherman/get/functions/get.fish
