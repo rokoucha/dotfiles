@@ -17,11 +17,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug',
         \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
   Plug 'altercation/vim-colors-solarized'
+  Plug '/usr/lib/python3.6/site-packages/powerline/bindings/vim'
 call plug#end()
 
 set title
 set number
-set ambiwidth=double
+set ambiwidth=single
 set tabstop=4
 set smartindent
 set list
@@ -43,3 +44,6 @@ colorscheme solarized
 " For Linux GVIM
 set guifont=NasuM\ 12
 
+" For Powerline
+set laststatus=2
+set showtabline=2
