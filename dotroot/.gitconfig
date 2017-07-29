@@ -1,10 +1,12 @@
+[core]
+	editor = vim
 [user]
 	name = Atnanasi
 	email = ys2000pro@gmail.com
 
 [gui]
-	fontui = -family Nasu -size 10 -weight normal -slant roman -underline 0 -overstrike 0
-	fontdiff = -family Nasu -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontui = -family Noto Sans CJK JP -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = family Noto Sans CJK JP -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 	spellingdictionary = none
 
 [ghq]
