@@ -31,9 +31,13 @@ eval (dircolors -c ~/.dircolors.ansi | sed 's/>&\/dev\/null$//')
 # Aliases
 alias lf "ls -Fa"
 alias ll "ls -la"
+alias open "xdg-open"
+alias clip "xclip -selection clipboard"
 
 function frepo
   set -l dir (ghq list > /dev/null | fzf-tmux --reverse +m) ;and
     cd (ghq root)/$dir
 end
 
+# default edit
+set -g EDITOR /bin/vim
