@@ -45,5 +45,6 @@ colorscheme solarized
 set guifont=NasuM\ 12
 
 " For Powerline
+let g:powerline_pycmd="py3"
 set laststatus=2
 set showtabline=2
