@@ -36,6 +36,8 @@ set nohlsearch
 set cursorline
 set laststatus=2
 set statusline=%F%r%h%=
+set hidden
+set nowrap
 
 " For Solarized-colors
 set background=dark

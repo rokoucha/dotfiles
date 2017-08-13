@@ -1,7 +1,7 @@
 ## Post install
 
 # Finish zplug install
-curl -sL zplug.sh/installer | zsh
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 
 # For prezto
 ln -s $HOME/.zplug/repos/sorin-ionescu/prezto $HOME/.zprezto
