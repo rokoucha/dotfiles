@@ -41,7 +41,7 @@ set nowrap
 
 " For Solarized-colors
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 
 " For Linux GVIM
 set guifont=NasuM\ 12
