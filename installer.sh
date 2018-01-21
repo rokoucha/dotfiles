@@ -32,7 +32,7 @@ function make_cloneurl( ) {
 	case "$1" in
 		"git" ) echo "git@$2:$3/$4.git" ;;
 		"https" ) echo "https://$2/$3/$4.git" ;;
-		* ) echo "illegal scheme: $1"; exit 1 ;;
+		* ) echo "illegal scheme: $1" >&2; exit 1 ;;
 	esac
 }
 
@@ -40,7 +40,7 @@ function make_cloneurl( ) {
 # Usage: check_command [command]
 function check_command( ) {
 	if [ ! `which $1` ]; then
-		echo "command not found: $1"
+		echo "command not found: $1" >&2
 		exit 1
 	fi
 }
