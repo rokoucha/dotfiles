@@ -2,16 +2,15 @@
 source ~/.zplug/init.zsh
 
 # Plugins
-#zplug "sorin-ionescu/prezto"
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "sorin-ionescu/prezto"
-zplug "mrowa44/emojify", as:command
-
-zplug "b4b4r07/emoji-cli", \
-    on:"stedolan/jq"
+zplug "stedolan/jq", as:command, from:gh-r, rename-to:jq
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 
 # Checking plugins
 if ! zplug check --verbose; then
