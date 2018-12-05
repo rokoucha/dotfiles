@@ -1,5 +1,6 @@
 [core]
 	editor = vim
+	excludesfile = /home/atnanasi/.gitignore_global
 [user]
 	name = Atnanasi
 	email = ys2000pro@gmail.com
