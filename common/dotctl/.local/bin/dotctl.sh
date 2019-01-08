@@ -7,7 +7,7 @@ _VERSION="1.00"
 # Settings
 
 ## Install path
-_INSTALL="$HOME/dottest"
+_INSTALL="$HOME"
 
 ## Repository path
 _DOTFILES="$_INSTALL/dotfiles"
