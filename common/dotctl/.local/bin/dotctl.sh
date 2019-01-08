@@ -17,7 +17,7 @@ _REPOSITORY="https://github.com/atnanasi/dotfiles.git"
 
 
 ## Repository Branch
-_BRANCH="dotctl"
+_BRANCH="master"
 
 # Environment detector
 if expr "$(uname -r)" : ".*Microsoft$" > /dev/null; then
