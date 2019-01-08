@@ -1,1 +1,0 @@
-/home/atnanasi/.config/fisherman/getopts/getopts.fish

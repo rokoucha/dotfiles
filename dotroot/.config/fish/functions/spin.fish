@@ -1,1 +1,0 @@
-/home/atnanasi/.config/fisherman/spin/spin.fish
