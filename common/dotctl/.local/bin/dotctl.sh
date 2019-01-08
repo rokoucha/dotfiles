@@ -53,7 +53,7 @@ banner( ) {
 / /_/ / /_/ / /_/ __/ / /  __(__  ) 
 \__,_/\____/\__/_/ /_/_/\___/____/  
 EOT
-    echo "$1($2) - $2"
+    echo "$1($2) - $3"
 }
 
 ## Clone or Pull from Git
@@ -61,13 +61,13 @@ EOT
 ## Usage: get_pull_or_clone <branch> <repository> <path>
 git_pull_or_clone( ) {
     cd="$(pwd)"
-    if [ -d "$2" ]; then
-        cd "$2"
+    if [ -d "$3" ]; then
+        cd "$3"
         git pull
     else
         git clone -b "$1" "$2" "$3"
     fi
-    cd "$2"
+    cd "$3"
     git submodule update --init --recursive -j 9
     cd "$cd"
 }
@@ -119,23 +119,33 @@ install ( ) {
 
     # Run install hooks
     for env in "common" $_ENV; do
-        # shellcheck disable=1090
-        . "$_DOTFILES/hooks/$env/*.sh"
+        # shellcheck disable=SC2044
+        for hook in $(find "$_DOTFILES/hooks/$env" -maxdepth 1 -type f -name "*.sh"); do
+            # shellcheck disable=1090
+            . "$hook"
+        done
     done
 }
 
 # Print banner↲
-banner "$_REPOSITORY" "Yet another dotfiles installer"↲
+banner "$_REPOSITORY" "$_BRANCH" "Yet another dotfiles installer"↲
 
 # Execute functions
-if [ $# -le 1 ]; then
-    install
+if [ $# -lt 1 ]; then
+    cat << EODOPT
+dotctl.sh - Git based smart Dotfiles manager
+
+Usage:
+  dotctl.sh install     Install dotfiles and Setup dotfiles
+  dotctl.sh deploy      Deploy dotfiles
+EODOPT
+    exit 1
 else
     case $1 in
         "install" ) install ;;
         "deploy" ) deploy ;;
         * ) echo "$1: function not found"; exit 1 ;;
     esac
+    echo "Done $1!"
 fi
 
-echo "Done something"
