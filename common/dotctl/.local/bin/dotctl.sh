@@ -80,14 +80,14 @@ deploy ( ) {
 
     for env in "common" $_ENV; do
         # shellcheck disable=SC2044
-        for app in $(find "$_DOTFILES/$env" -maxdepth 1 ! -path "$_DOTFILES/$env" -type d -exec basename {} +); do
+        for app in $(find "$_DOTFILES/$env" -maxdepth 1 ! -path "$_DOTFILES/$env" -type d -exec basename {} \;); do
             echo "$app:"
             # shellcheck disable=SC2044
             for file in $(find "$_DOTFILES/$env/$app" -type f); do
                 dotfile="${file#$_DOTFILES/$env/$app}"
                 dotpath="$(dirname "$dotfile")"
 
-                echo " - Deploy $dotfile to $_INSTALL/$dotfile"
+                echo " - Deploy $dotfile to $_INSTALL$dotfile"
                 mkdir -p "$_INSTALL/$dotpath"
 
                 if [ -L "$_INSTALL/$dotfile" ] ;then
