@@ -7,4 +7,8 @@ export XMODIFIERS="@im=ibus"
 # Fix Discord
 export PULSE_LATENCY_MSEC=90
 
+# Fix Java Applications
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export JAVA_FONTS=/usr/share/fonts/TTF
+
 exec i3
