@@ -16,5 +16,3 @@
 [ghq "https://github.com/"]
 	vcs = git
 
-[url "git@github.com:atnanasi"]
-	insteadOf= https://github.com/atnanasi

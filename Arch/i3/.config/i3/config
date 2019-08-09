@@ -31,10 +31,13 @@ exec --no-startup-id xhost +
 exec --no-startup-id compton -b
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id lxpolkit
+exec --no-startup-id flameshot
 exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id volumeicon
 exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 
 # set Mod key
 set $mod Mod4
@@ -59,16 +62,13 @@ bindsym XF86MonBrightnesssUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnesssDown exec --no-startup-id light -U 5
 
 # start a terminal
-bindsym $mod+Return exec tilix
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+c kill
 
 # print screen
-bindsym Print exec --no-startup-id "gnome-screenshot -ac"
-
-# advanced print screen
-bindsym $mod+Print exec --no-startup-id "gnome-screenshot -i"
+bindsym Print exec --no-startup-id flameshot gui
 
 # make workspaces
 set $W1 1
@@ -85,9 +85,7 @@ set $W10 10
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-# bindsym $mod+r exec dmenu_run -fn "DejaVuSansMono Nerd Font:9:Book"
-bindsym $mod+r exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -fn "Sans:9:Book"'
+bindsym $mod+r exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -fn "Monospace:9:Book"'
 
 # change focus
 bindsym $mod+$left focus left
@@ -158,17 +156,6 @@ bindsym $mod+8 workspace $W8
 bindsym $mod+9 workspace $W9
 bindsym $mod+0 workspace $W10
 
-# workspace assigns
-workspace $W1 output DVI-I-1
-workspace $W2 output HDMI-1
-workspace $W3 output HDMI-1
-workspace $W4 output DVI-I-1
-workspace $W5 output DVI-I-1
-assign [class="^Firefox Developer Edition"] $W2
-assign [class="^Code"] $W3
-assign [class="^Slack"] $W4
-assign [class="^discord"] $W5
-
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $W1
 bindsym $mod+Shift+2 move container to workspace $W2
@@ -180,6 +167,22 @@ bindsym $mod+Shift+7 move container to workspace $W7
 bindsym $mod+Shift+8 move container to workspace $W8
 bindsym $mod+Shift+9 move container to workspace $W9
 bindsym $mod+Shift+0 move container to workspace $W10
+
+# workspace assigns
+workspace $W1 output DisplayPort-2
+workspace $W2 output DisplayPort-2
+workspace $W3 output HDMI-A-0
+workspace $W4 output DisplayPort-2
+workspace $W5 output DisplayPort-2
+assign [class="^firefoxdeveloperedition"] $W2
+assign [class="^Slack"] $W3
+assign [class="^discord"] $W3
+assign [class="^code-oss"] $W4
+
+# float windows
+for_window [class="Gnome-calculator"] floating enable
+for_window [class="flameshot"] floating enable
+for_window [class="Kazam"] floating enable
 
 # reload the configuration file
 bindsym $mod+q reload
