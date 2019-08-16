@@ -9,9 +9,8 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "sorin-ionescu/prezto"
 zplug "plugins/dotenv", from:oh-my-zsh
-zplug "stedolan/jq", as:command, from:gh-r, rename-to:jq
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+zplug "g-plane/zsh-yarn-autocompletions", hook-build:"./zplug.zsh", defer:2
 
 # Checking plugins
 if ! zplug check --verbose; then
