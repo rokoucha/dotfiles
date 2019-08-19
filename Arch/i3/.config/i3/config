@@ -58,8 +58,8 @@ set $right semicolon
 floating_modifier $mod
 
 # backlight
-bindsym XF86MonBrightnesssUp exec --no-startup-id light -A 5
-bindsym XF86MonBrightnesssDown exec --no-startup-id light -U 5
+bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessDown exec light -U 5
 
 # start a terminal
 bindsym $mod+Return exec alacritty
