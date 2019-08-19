@@ -76,7 +76,7 @@ git_pull_or_clone( ) {
 
 ## Deploy
 deploy ( ) {
-    _OLD_DOTFILES=$_INSTALL-old/$(date +"%Y-%m-%d-%H-%M-%S")
+    _OLD_DOTFILES=$_DOTFILES-old/$(date +"%Y-%m-%d-%H-%M-%S")
 
     for env in "common" $_ENV; do
         echo "# $env"
@@ -86,22 +86,22 @@ deploy ( ) {
             # shellcheck disable=SC2044
             for file in $(find "$_DOTFILES/$env/$app" -type f); do
                 dotfile="${file#$_DOTFILES/$env/$app}"
-                dotpath="$(dirname "$dotfile")"
+                dotpath=$(dirname "$dotfile")
 
                 echo " - $dotfile to $_INSTALL$dotfile"
                 mkdir -p "$_INSTALL/$dotpath"
 
-                if [ -L "$_INSTALL/$dotfile" ] ;then
+                if [ -L "$_INSTALL$dotfile" ] ;then
                     # Delete when target is symbolic link
-                    rm "$_INSTALL/$dotfile"
-                elif [ -f "$_INSTALL/$dotfile" ] ;then
+                    rm "$_INSTALL$dotfile"
+                elif [ -f "$_INSTALL$dotfile" ] ;then
                     # Move when target is file
-                    mkdir -p "$_OLD_DOTFILES"
-                    mv "$_INSTALL/$dotfile" "$_OLD_DOTFILES/$dotfile"
+                    mkdir -p "$_OLD_DOTFILES/$dotpath"
+                    mv "$_INSTALL$dotfile" "$_OLD_DOTFILES$dotfile"
                 fi
 
                 # Link file
-                ln -s "$file" "$_INSTALL/$dotfile"
+                ln -s "$file" "$_INSTALL$dotfile"
             done
         done
     done
