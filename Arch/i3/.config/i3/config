@@ -62,7 +62,7 @@ bindsym XF86MonBrightnesssUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnesssDown exec --no-startup-id light -U 5
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -85,7 +85,7 @@ set $W10 10
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+r exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -fn "Monospace:9:Book"'
+bindsym $mod+r exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -fn "Sans:9:Book"'
 
 # change focus
 bindsym $mod+$left focus left
