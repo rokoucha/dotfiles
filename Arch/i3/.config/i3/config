@@ -62,7 +62,7 @@ bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -183,6 +183,7 @@ assign [class="^code-oss"] $W4
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="flameshot"] floating enable
 for_window [class="Kazam"] floating enable
+for_window [class="Editaro"] floating enable
 
 # reload the configuration file
 bindsym $mod+q reload

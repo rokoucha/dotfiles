@@ -11,6 +11,4 @@ export PULSE_LATENCY_MSEC=90
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export JAVA_FONTS=/usr/share/fonts/TTF
 
-export MONITOR=eDP
-
 exec i3
