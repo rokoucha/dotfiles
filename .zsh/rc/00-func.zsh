@@ -7,3 +7,5 @@ autoload -U colors
 colors
 compinit
 promptinit
+
+zpcompinit

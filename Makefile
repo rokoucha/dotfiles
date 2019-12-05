@@ -25,8 +25,9 @@ vim: ## Vim
 	@$(PACMAN_S) vim
 
 vundle: ## Vundle
-	@git clone https://github.com/VundleVim/Vundle.vim.git $(INSTALL_PATH)/.vim/bundle/Vundle.vim
-	@vim +PluginInstall +qall
+	@mkdir -p $(INSTALL_PATH)/.vim/bundle/Vundle.vim
+	git clone https://github.com/VundleVim/Vundle.vim.git $(INSTALL_PATH)/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
 
 yay: ## Yay
 	@$(eval YAY_TEMP := $(shell mktemp -d))
@@ -37,8 +38,9 @@ yay: ## Yay
 zsh: ## Zsh
 	@$(PACMAN_S) fzf ghq powerline zsh
 
-zplug: ## Zplug
-	-@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | ZPLUG_HOME=$(INSTALL_PATH)/.zplug zsh
+zplugin: ## Zplugin
+	@mkdir ~/.zplugin
+	git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
 
 zprezto: ## Prezto
 	@ln -sf $(INSTALL_PATH)/.zplug/repos/sorin-ionescu/prezto $(INSTALL_PATH)/.zprezto
@@ -58,8 +60,9 @@ deploy: banner ## Deploy dotfiles
 	@echo ""
 	@$(foreach dotfile, $(DOTFILES), mkdir -p $(INSTALL_PATH)/$(dir $(dotfile)); /usr/bin/ln -sfv $(abspath $(dotfile)) $(INSTALL_PATH)/$(dotfile);)
 
-zshinstall: ## Install zsh applications
-	exit 0
+cliinstall: deploy vim vundle zsh zplugin zprezto ## Install zsh applications
+	@echo "> Successfully completed! Rebooting shell..."
+	exec $$SHELL
 
 setup: ## Setup computer
 	exit 0
@@ -67,6 +70,6 @@ setup: ## Setup computer
 help: ## Help
 	exit 0
 
-.PHONY: banner update deploy zshinstall setup help
+.PHONY: banner update deploy cliinstall setup help
 
 .DEFAULT_GOAL := help
