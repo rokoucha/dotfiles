@@ -32,6 +32,7 @@ RUN echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 # User
 RUN useradd -G wheel -m -s /usr/bin/zsh ${USERNAME}
 RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+ENV SHELL /usr/bin/zsh
 
 # Yay
 # Fix sudo https://bugzilla.redhat.com/show_bug.cgi?id=1773148
