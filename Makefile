@@ -21,6 +21,14 @@ DOTFILES := $(shell printf " ! -path $(DOTFILES_PATH)/%s" $(EXCLUSION) | xargs f
 PACMAN_S := yay -S --noconfirm --needed
 
 # Task for Applications
+asdf: ## Asdf
+	git clone https://github.com/asdf-vm/asdf.git $(INSTALL_PATH)/.asdf
+
+docker: ## Docker
+	@$(PACMAN_S) docker docker-compose
+	@gpasswd -a $(USER) docker
+	@sudo systemctl enable docker.service
+
 vim: ## Vim
 	@$(PACMAN_S) vim
 
@@ -43,7 +51,7 @@ zplugin: ## Zplugin
 	git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
 
 zprezto: ## Prezto
-	@ln -sf $(INSTALL_PATH)/.zplug/repos/sorin-ionescu/prezto $(INSTALL_PATH)/.zprezto
+	@ln -sf $(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto $(INSTALL_PATH)/.zprezto
 
 # Task for dotfiles
 banner: ## Print banner
@@ -60,16 +68,24 @@ deploy: banner ## Deploy dotfiles
 	@echo ""
 	@$(foreach dotfile, $(DOTFILES), mkdir -p $(INSTALL_PATH)/$(dir $(dotfile)); /usr/bin/ln -sfv $(abspath $(dotfile)) $(INSTALL_PATH)/$(dotfile);)
 
-cliinstall: deploy vim vundle zsh zplugin zprezto ## Install zsh applications
-	@echo "> Successfully completed! Rebooting shell..."
-	exec $$SHELL
+cli: deploy vundle zplugin zprezto asdf ## Fetch zsh applications
+
+arch: vim zsh ## Install Arch Linux packages
+
+cliinstall: cli execshell ## Setup zsh applications
+
+archinstall: arch cli execshell ## Setup Arch applications
 
 setup: ## Setup computer
 	exit 0
 
+execshell: ## Reboot shell
+	@echo "> Successfully completed! Rebooting shell..."
+	exec $$SHELL
+
 help: ## Help
 	exit 0
 
-.PHONY: banner update deploy cliinstall setup help
+.PHONY: banner update deploy cli arch cliinstall archinstall setup execshell help
 
 .DEFAULT_GOAL := help
