@@ -15,7 +15,10 @@ INSTALL_PATH := $(HOME)
 DOTFILES_PATH := $(HOME)/.dotfiles
 REPOSITORY := https://github.com/rokoucha/dotfiles.git
 EXCLUSION := .git/\* dotroot/\* docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
+
+# System variable
 DOTFILES := $(shell printf " ! -path $(DOTFILES_PATH)/%s" $(EXCLUSION) | xargs find $(DOTFILES_PATH) -type f | sed 's|^$(DOTFILES_PATH)/||')
+MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 # Aliases
 PACMAN_S := yay -S --noconfirm --needed
@@ -84,6 +87,9 @@ execshell: ## Reboot shell
 	@echo "===> Successfully completed! Rebooting shell..."
 	@echo ""
 	exec $$SHELL
+
+debug: ## Debugging with Docker
+	@sh -c "cd $(MAKEFILE_DIR); docker-compose build --pull; docker-compose run --rm dotfiles"
 
 help: ## Help
 	exit 0
