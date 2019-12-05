@@ -6,27 +6,23 @@ set fileformats=unix,dos,mac
 scriptencoding utf-8
 set ambiwidth=double
 
-" For vim-plug
-if has('vim_starting')
-    set rtp+=~/.vim/plugged/vim-plug
-        if !isdirectory(expand('~/.vim/plugged/vim-plug'))
-        echo 'install vim-plug...'
-        call system('mkdir -p ~/.vim/plugged/vim-plug')
-        call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
-    end
-endif
+" For Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-call plug#begin('~/.vim/plugged')
-    Plug 'junegunn/vim-plug',
-        \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'tpope/vim-fugitive'
-    Plug 'Yggdroot/indentLine'
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs'
-    Plug 'xuyuanp/nerdtree-git-plugin'
-call plug#end()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'xuyuanp/nerdtree-git-Pluginin'
+Plugin 'Yggdroot/indentLine'
+
+call vundle#end()
+filetype plugin indent on
 
 " ; to : (for US Keyboard)
 noremap ; :

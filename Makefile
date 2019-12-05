@@ -11,21 +11,22 @@ endef
 export BANNER
 
 # Settings
-INSTALL_PATH := $(shell pwd)/dotroot#$(HOME)
-DOTFILES_PATH := $(shell pwd)#$(HOME)/.dotfiles
+INSTALL_PATH := $(HOME)
+DOTFILES_PATH := $(HOME)/.dotfiles
 REPOSITORY := https://github.com/rokoucha/dotfiles.git
 EXCLUSION := .git/\* dotroot/\* docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
 DOTFILES := $(shell printf " ! -path $(DOTFILES_PATH)/%s" $(EXCLUSION) | xargs find $(DOTFILES_PATH) -type f | sed 's|^$(DOTFILES_PATH)/||')
 
 # Aliases
-PACMAN_S := sudo pacman -S --noconfirm --needed
+PACMAN_S := yay -S --noconfirm --needed
 
 # Task for Applications
 vim: ## Vim
 	@$(PACMAN_S) vim
 
-vim-plug: ## Vim Plug
-	@vim +silent +VimEnter +PlugInstall +qall
+vundle: ## Vundle
+	@git clone https://github.com/VundleVim/Vundle.vim.git $(INSTALL_PATH)/.vim/bundle/Vundle.vim
+	@vim +PluginInstall +qall
 
 yay: ## Yay
 	@$(eval YAY_TEMP := $(shell mktemp -d))
@@ -34,7 +35,7 @@ yay: ## Yay
 	@rm -rf $(YAY_TEMP)
 
 zsh: ## Zsh
-	@$(PACMAN_S) zsh
+	@$(PACMAN_S) fzf ghq powerline zsh
 
 zplug: ## Zplug
 	-@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | ZPLUG_HOME=$(INSTALL_PATH)/.zplug zsh
