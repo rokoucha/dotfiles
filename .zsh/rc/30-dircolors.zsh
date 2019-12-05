@@ -1,5 +1,5 @@
 #Set dircolors
-eval $(dircolors ~/.dircolors.ansi)
+eval $(dircolors ~/.dircolors)
 
 #Set dircolors for zsh-comp
 if [ -n "$LS_COLORS" ]; then

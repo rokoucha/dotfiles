@@ -27,6 +27,9 @@ PACMAN_S := yay -S --noconfirm --needed
 asdf: ## Asdf
 	git clone https://github.com/asdf-vm/asdf.git $(INSTALL_PATH)/.asdf
 
+dircolos: ## dircolor
+	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > $(INSTALL_PATH)/.dircolors
+
 docker: ## Docker
 	@$(PACMAN_S) docker docker-compose
 	@gpasswd -a $(USER) docker
@@ -74,7 +77,7 @@ deploy: banner ## Deploy dotfiles
 	@echo ""
 	@$(foreach dotfile, $(DOTFILES), mkdir -p $(INSTALL_PATH)/$(dir $(dotfile)); /usr/bin/ln -sfv $(abspath $(dotfile)) $(INSTALL_PATH)/$(dotfile);)
 
-cli: vundle zplugin zprezto asdf ## Fetch zsh applications
+cli: dircolos vundle zplugin zprezto asdf ## Fetch zsh applications
 
 cliinstall: deploy cli execshell ## Setup zsh applications
 
