@@ -39,6 +39,7 @@ vim: ## Vim
 	@$(PACMAN_S) vim
 
 vundle: ## Vundle
+	@if type vim >/dev/null 2>&1; then exit 1; fi
 	@mkdir -p $(INSTALL_PATH)/.vim/bundle/Vundle.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git $(INSTALL_PATH)/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
