@@ -1,6 +1,7 @@
 FROM archlinux/base:latest
 
 ARG USERNAME=rokoucha
+ARG DOTFILES=.dotfiles
 
 # Pacman
 RUN sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
@@ -41,8 +42,8 @@ RUN sudo -i -u ${USERNAME} sh -c "cd /yay-build; makepkg -sri --noconfirm"
 RUN rm -rf /yay-build
 
 # Dotfiles
-ADD . /home/${USERNAME}/.dotfiles
-RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/dotfiles
+ADD . /home/${USERNAME}/${DOTFILES}
+RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/${DOTFILES}
 
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
