@@ -98,6 +98,6 @@ debug: ## Debugging with Docker
 help: ## Help
 	exit 0
 
-.PHONY: banner list update deploy cli cliinstall archcliinstall setup execshell help
+.PHONY: banner list update deploy cli cliinstall archcliinstall setup execshell debug help
 
 .DEFAULT_GOAL := help
