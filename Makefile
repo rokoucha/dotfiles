@@ -11,8 +11,8 @@ endef
 export BANNER
 
 # Settings
-INSTALL_PATH := $(HOME)
-DOTFILES_PATH := $(HOME)/.dotfiles
+INSTALL_PATH := $(shell pwd)/dotroot#$(HOME)
+DOTFILES_PATH := $(shell pwd)#$(HOME)/.dotfiles
 REPOSITORY := https://github.com/rokoucha/dotfiles.git
 EXCLUSION := .git/\* dotroot/\* docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
 DOTFILES := $(shell printf " ! -path $(DOTFILES_PATH)/%s" $(EXCLUSION) | xargs find $(DOTFILES_PATH) -type f | sed 's|^$(DOTFILES_PATH)/||')
@@ -26,6 +26,12 @@ vim: ## Vim
 
 vim-plug: ## Vim Plug
 	@vim +silent +VimEnter +PlugInstall +qall
+
+yay: ## Yay
+	@$(eval YAY_TEMP := $(shell mktemp -d))
+	@git clone https://aur.archlinux.org/yay.git $(YAY_TEMP)
+	@sh -c "cd $(YAY_TEMP); makepkg -sri --noconfirm"
+	@rm -rf $(YAY_TEMP)
 
 zsh: ## Zsh
 	@$(PACMAN_S) zsh
