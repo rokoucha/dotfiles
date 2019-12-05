@@ -18,7 +18,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-airline/vim-airline'
-Plugin 'xuyuanp/nerdtree-git-Pluginin'
+Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'Yggdroot/indentLine'
 
 call vundle#end()
