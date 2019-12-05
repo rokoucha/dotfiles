@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu
+
+export DOTFILES_PATH=~/.dotfiles
+
+pushd $DOTFILES_PATH > /dev/null || exit
+
+make "$@"
+
+popd > /dev/null || exit
