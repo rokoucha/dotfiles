@@ -1,0 +1,8 @@
+[core]
+    editor = vim
+
+[ghq]
+    root = ~/Projects
+
+[ghq "https://github.com/"]
+    vcs = git
