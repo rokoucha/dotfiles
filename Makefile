@@ -38,6 +38,7 @@ vundle: ## Vundle
 	vim +PluginInstall +qall
 
 yay: ## Yay
+	@if type yay >/dev/null 2>&1; then exit 0; fi
 	@$(eval YAY_TEMP := $(shell mktemp -d))
 	@git clone https://aur.archlinux.org/yay.git $(YAY_TEMP)
 	@sh -c "cd $(YAY_TEMP); makepkg -sri --noconfirm"
@@ -61,31 +62,32 @@ list: ## dotfiles list
 	@$(foreach dotfile, $(DOTFILES), /usr/bin/ls $(dotfile);)
 
 update: ## Update dotfiles
+	@echo "===> Update dotfiles"
+	@echo ""
 	@git pull origin master
 
 deploy: banner ## Deploy dotfiles
-	@echo "> Deploy dotfiles to $(INSTALL_PATH)"
+	@echo "===> Deploy dotfiles to $(INSTALL_PATH)"
 	@echo ""
 	@$(foreach dotfile, $(DOTFILES), mkdir -p $(INSTALL_PATH)/$(dir $(dotfile)); /usr/bin/ln -sfv $(abspath $(dotfile)) $(INSTALL_PATH)/$(dotfile);)
 
-cli: deploy vundle zplugin zprezto asdf ## Fetch zsh applications
+cli: vundle zplugin zprezto asdf ## Fetch zsh applications
 
-arch: vim zsh ## Install Arch Linux packages
+cliinstall: deploy cli execshell ## Setup zsh applications
 
-cliinstall: cli execshell ## Setup zsh applications
-
-archinstall: arch cli execshell ## Setup Arch applications
+archcliinstall: deploy yay docker vim zsh cli execshell ## Setup Arch applications
 
 setup: ## Setup computer
 	exit 0
 
 execshell: ## Reboot shell
-	@echo "> Successfully completed! Rebooting shell..."
+	@echo "===> Successfully completed! Rebooting shell..."
+	@echo ""
 	exec $$SHELL
 
 help: ## Help
 	exit 0
 
-.PHONY: banner update deploy cli arch cliinstall archinstall setup execshell help
+.PHONY: banner list update deploy cli cliinstall archcliinstall setup execshell help
 
 .DEFAULT_GOAL := help
