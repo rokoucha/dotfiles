@@ -10,7 +10,7 @@ endef
 export BANNER
 
 # Settings
-EXCLUSION := .git/\* .gitignore docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
+EXCLUSION := .git/\* docker-compose.yml Dockerfile LICENSE Makefile README.md
 
 # System variable
 INSTALL_PATH := $(if $(INSTALL_PATH),$(INSTALL_PATH),$(HOME))
