@@ -3,6 +3,7 @@
 set -eu
 
 DOTFILES_FALLBACK_PATH="$HOME/.dotfiles"
+DOTFILES_FALLBACK_REPOSITORY="https://github.com/rokoucha/dotfiles"
 
 # Get config path
 if [ -v "XDG_CONFIG_HOME" ]; then
@@ -15,13 +16,30 @@ fi
 if [ -f "$DOTFILES_CONF_PATH" ]; then
     # shellcheck disable=SC1090
     source "$DOTFILES_CONF_PATH" || true
+# Use fallback value
 elif [ -f "$DOTFILES_FALLBACK_PATH/Makefile" ]; then
     echo "===> Dotfiles config file doesn't exist, Use fallback path $DOTFILES_FALLBACK_PATH"
     echo "===> You have to execute 'dotfiles deploy' to fix this issue."
     DOTFILES_PATH="$DOTFILES_FALLBACK_PATH"
+# Fetch dotfiles
 else
     echo "===> Dotfiles doesn't exist..."
-    exit 1
+    echo "===> Fetch $DOTFILES_FALLBACK_REPOSITORY to $DOTFILES_FALLBACK_PATH"
+    # Clone with git
+    if type git >/dev/null 2>&1; then
+        git clone "$DOTFILES_FALLBACK_REPOSITORY.git" "$DOTFILES_FALLBACK_PATH"
+    # Fetch with curl & tar
+    elif type curl >/dev/null 2>&1; then
+        EXTRACT_PATH=$(dirname "$DOTFILES_FALLBACK_PATH")
+        REPOSITORY_NAME=$(basename "$DOTFILES_FALLBACK_PATH")
+        mkdir -p "$EXTRACT_PATH"
+        curl -L "$DOTFILES_FALLBACK_REPOSITORY/archive/master.tar.gz" | tar vxz -C "$EXTRACT_PATH"
+        mv "$EXTRACT_PATH/$REPOSITORY_NAME-master" "$DOTFILES_FALLBACK_PATH"
+    else
+        echo "===> You must install curl or git to fetch dotfiles..."
+        exit 1
+    fi
+    DOTFILES_PATH="$DOTFILES_FALLBACK_PATH"
 fi
 
 pushd "$DOTFILES_PATH" > /dev/null || exit

@@ -26,6 +26,7 @@ define DOTFILES_CONF
 DOTFILES_CONF_PATH="$(DOTFILES_CONF_PATH)"
 DOTFILES_PATH="$(DOTFILES_PATH)"
 INSTALL_PATH="$(INSTALL_PATH)"
+REPOSITORY="$(REPOSITORY)"
 endef
 export DOTFILES_CONF
 
@@ -46,6 +47,9 @@ docker: ## Docker
 	sudo systemctl enable docker.service
 	@echo "===> Required reboot before using Docker"
 
+git : ## Git
+	$(PACMAN_S) git
+
 vim: ## Vim
 	$(PACMAN_S) vim
 
@@ -59,9 +63,7 @@ vundle: ## Vundle
 	fi
 
 yay: ## Yay
-	@if type yay >/dev/null 2>&1; then \
-		echo "===> Nothing to be done for yay"; \
-	else \
+	@if ! type yay >/dev/null 2>&1; then \
 		$(eval YAY_TEMP := $(shell mktemp -d)) \
 		git clone https://aur.archlinux.org/yay.git "$(YAY_TEMP)"; \
 		sh -c "cd \"$(YAY_TEMP)\"; makepkg -sri --noconfirm"; \
