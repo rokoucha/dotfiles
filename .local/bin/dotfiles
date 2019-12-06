@@ -2,9 +2,29 @@
 
 set -eu
 
-export DOTFILES_PATH=~/.dotfiles
+DOTFILES_FALLBACK_PATH="$HOME/.dotfiles"
 
-pushd $DOTFILES_PATH > /dev/null || exit
+# Get config path
+if [ -v "XDG_CONFIG_HOME" ]; then
+    DOTFILES_CONF_PATH="$XDG_CONFIG_HOME/dotfiles/config"
+else
+    DOTFILES_CONF_PATH="$HOME/.config/dotfiles/config"
+fi
+
+# Load if config exists
+if [ -f "$DOTFILES_CONF_PATH" ]; then
+    # shellcheck disable=SC1090
+    source "$DOTFILES_CONF_PATH" || true
+elif [ -f "$DOTFILES_FALLBACK_PATH/Makefile" ]; then
+    echo "===> Dotfiles config file doesn't exist, Use fallback path $DOTFILES_FALLBACK_PATH"
+    echo "===> You have to execute 'dotfiles deploy' to fix this issue."
+    DOTFILES_PATH="$DOTFILES_FALLBACK_PATH"
+else
+    echo "===> Dotfiles doesn't exist..."
+    exit 1
+fi
+
+pushd "$DOTFILES_PATH" > /dev/null || exit
 
 make "$@"
 

@@ -10,3 +10,5 @@ zplugin load "sorin-ionescu/prezto"
 zplugin snippet OMZ::plugins/dotenv/dotenv.plugin.zsh
 zplugin ice atload"zpcdreplay" atclone'./zplug.zsh'
 zplugin light g-plane/zsh-yarn-autocompletions
+
+zpcompinit
