@@ -6,7 +6,6 @@ define BANNER
 \__,_/\____/\__/_/ /_/_/\___/____/  
 
         Rokoucha's dotfiles
-
 endef
 export BANNER
 
@@ -90,6 +89,9 @@ install: deploy cli execshell ## Setup cli envirpnment
 install-arch-cli: deploy arch cli execshell ## Setup Arch cli environment
 
 # Task for dotfiles
+dotpath: ## Echo dotfile path
+	@echo "$(DOTFILES_PATH)"
+
 banner: ## Print banner
 	@echo "$$BANNER"
 
@@ -117,8 +119,8 @@ debug: banner ## Debugging with Docker
 	@sh -c "cd \"$(MAKEFILE_DIR)\"; docker-compose build --pull; docker-compose run --rm dotfiles"
 
 help: banner ## Help
-	exit 0
+	@exit 0
 
-.PHONY: banner list update deploy cli cliinstall archcliinstall setup execshell debug help
+.PHONY: arch cli install install-arch-cli dotpath banner list update deploy execshell debug help
 
 .DEFAULT_GOAL := help
