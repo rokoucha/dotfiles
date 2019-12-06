@@ -52,7 +52,7 @@ gnupg: ## Install GnuPG
 
 openssh: ## Install OpenSSH
 	$(PACMAN_S) openssh
-	ssh-keygen -t ed25519 -N ""
+	ssh-keygen -f "$(INSTALL_PATH)/.ssh/id_ed25519" -N "" -t ed25519
 
 vim: ## Install Vim
 	$(PACMAN_S) vim
