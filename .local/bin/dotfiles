@@ -31,7 +31,7 @@ else
     # Fetch with curl & tar
     elif type curl >/dev/null 2>&1; then
         EXTRACT_PATH=$(dirname "$DOTFILES_FALLBACK_PATH")
-        REPOSITORY_NAME=$(basename "$DOTFILES_FALLBACK_PATH")
+        REPOSITORY_NAME=$(basename "$DOTFILES_FALLBACK_REPOSITORY")
         mkdir -p "$EXTRACT_PATH"
         curl -L "$DOTFILES_FALLBACK_REPOSITORY/archive/master.tar.gz" | tar vxz -C "$EXTRACT_PATH"
         mv "$EXTRACT_PATH/$REPOSITORY_NAME-master" "$DOTFILES_FALLBACK_PATH"
