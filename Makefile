@@ -60,11 +60,21 @@ zplugin: ## Zplugin
 zprezto: ## Prezto
 	@ln -sf $(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto $(INSTALL_PATH)/.zprezto
 
+# Task targets
+arch: yay docker vim zsh
+
+cli: dircolos vundle zplugin zprezto asdf ## Fetch zsh applications
+
+# Task for Setup
+install: deploy cli execshell ## Setup cli envirpnment
+
+install-arch-cli: deploy arch cli execshell ## Setup Arch cli environment
+
 # Task for dotfiles
 banner: ## Print banner
 	@echo "$$BANNER"
 
-list: ## dotfiles list
+list: ## Listing dotfiles
 	@echo "==> Listing dotfiles in $(DOTFILES_PATH)"
 	@$(foreach dotfile, $(DOTFILES), /usr/bin/ls $(dotfile);)
 
@@ -77,15 +87,6 @@ deploy: banner ## Deploy dotfiles
 	@echo "===> Deploy dotfiles to $(INSTALL_PATH)"
 	@echo ""
 	@$(foreach dotfile, $(DOTFILES), mkdir -p $(INSTALL_PATH)/$(dir $(dotfile)); /usr/bin/ln -sfv $(abspath $(dotfile)) $(INSTALL_PATH)/$(dotfile);)
-
-cli: dircolos vundle zplugin zprezto asdf ## Fetch zsh applications
-
-cliinstall: deploy cli execshell ## Setup zsh applications
-
-archcliinstall: deploy yay docker vim zsh cli execshell ## Setup Arch applications
-
-setup: ## Setup computer
-	exit 0
 
 execshell: ## Reboot shell
 	@echo "===> Successfully completed! Rebooting shell..."
