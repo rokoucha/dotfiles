@@ -12,13 +12,12 @@ export BANNER
 
 # Settings
 INSTALL_PATH := $(HOME)
-DOTFILES_PATH := $(HOME)/.dotfiles
 REPOSITORY := https://github.com/rokoucha/dotfiles.git
 EXCLUSION := .git/\* dotroot/\* docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
 
 # System variable
+DOTFILES_PATH := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 DOTFILES := $(shell printf " ! -path $(DOTFILES_PATH)/%s" $(EXCLUSION) | xargs find $(DOTFILES_PATH) -type f | sed 's|^$(DOTFILES_PATH)/||')
-MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 # Aliases
 PACMAN_S := yay -S --noconfirm --needed
@@ -66,6 +65,7 @@ banner: ## Print banner
 	@echo "$$BANNER"
 
 list: ## dotfiles list
+	@echo "==> Listing dotfiles in $(DOTFILES_PATH)"
 	@$(foreach dotfile, $(DOTFILES), /usr/bin/ls $(dotfile);)
 
 update: ## Update dotfiles
