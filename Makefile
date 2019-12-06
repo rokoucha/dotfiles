@@ -35,10 +35,10 @@ PACMAN_S := yay -S --noconfirm --needed
 LN := /usr/bin/ln -sfv
 
 # Task for Applications
-asdf: ## Asdf
+asdf: git ## Asdf
 	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
 
-dircolos: ## dircolor
+dircolos: git ## dircolor
 	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
 
 docker: ## Docker
@@ -53,7 +53,7 @@ git : ## Git
 vim: ## Vim
 	$(PACMAN_S) vim
 
-vundle: ## Vundle
+vundle: git ## Vundle
 	@if type vim >/dev/null 2>&1; then \
 		git clone https://github.com/VundleVim/Vundle.vim.git "$(INSTALL_PATH)/.vim/bundle/Vundle.vim"; \
 		vim +PluginInstall +qall; \
@@ -62,7 +62,7 @@ vundle: ## Vundle
 		exit 1; \
 	fi
 
-yay: ## Yay
+yay: git ## Yay
 	@if ! type yay >/dev/null 2>&1; then \
 		$(eval YAY_TEMP := $(shell mktemp -d)) \
 		git clone https://aur.archlinux.org/yay.git "$(YAY_TEMP)"; \
@@ -73,7 +73,7 @@ yay: ## Yay
 zsh: ## Zsh
 	$(PACMAN_S) fzf ghq powerline zsh
 
-zplugin: ## Zplugin
+zplugin: git ## Zplugin
 	git clone https://github.com/zdharma/zplugin.git "$(INSTALL_PATH)/.zplugin/bin"
 
 zprezto: ## Prezto
