@@ -10,7 +10,6 @@ endef
 export BANNER
 
 # Settings
-REPOSITORY := https://github.com/rokoucha/dotfiles.git
 EXCLUSION := .git/\* .gitignore docker-compose.yml Dockerfile installer.sh LICENSE Makefile README.md
 
 # System variable
@@ -25,7 +24,6 @@ define DOTFILES_CONF
 DOTFILES_CONF_PATH="$(DOTFILES_CONF_PATH)"
 DOTFILES_PATH="$(DOTFILES_PATH)"
 INSTALL_PATH="$(INSTALL_PATH)"
-REPOSITORY="$(REPOSITORY)"
 endef
 export DOTFILES_CONF
 
