@@ -59,6 +59,10 @@ vundle: git ## Vundle
 		exit 1; \
 	fi
 
+xdg-user-dirs: ## XDG user directories
+	$(PACMAN_S) xdg-user-dirs
+	env LC_ALL=C xdg-user-dirs-update
+
 yay: git ## Yay
 	@if ! type yay >/dev/null 2>&1; then \
 		$(eval YAY_TEMP := $(shell mktemp -d)) \
