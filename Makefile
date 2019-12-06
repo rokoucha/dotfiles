@@ -31,7 +31,7 @@ export DOTFILES_CONF
 PACMAN_S := yay -S --noconfirm --needed
 LN := /usr/bin/ln -sfv
 
-# Task for Applications
+##@ Task for Applications
 asdf: git ## Asdf
 	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
 
@@ -76,17 +76,23 @@ zplugin: git ## Zplugin
 zprezto: ## Prezto
 	@$(LN) "$(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
-# Task targets
+##@ Task targets
+.PHONY: arch cli
+
 arch: yay docker vim zsh
 
 cli: dircolos vundle zplugin zprezto asdf ## Fetch zsh applications
 
-# Task for Setup
+##@ Task for Setup
+.PHONY: install install-arch-cli
+
 install: deploy cli execshell ## Setup cli envirpnment
 
 install-arch-cli: deploy arch cli execshell ## Setup Arch cli environment
 
-# Task for dotfiles
+##@ Task for dotfiles
+.PHONY: dotpath banner list update deploy execshell debug help
+
 dotpath: ## Echo dotfile path
 	@echo "$(DOTFILES_PATH)"
 
@@ -116,9 +122,8 @@ debug: banner ## Debugging with Docker
 	@echo "===> Debug dotfiles with Docker"
 	@sh -c "cd \"$(MAKEFILE_DIR)\"; docker-compose build --pull; docker-compose run --rm dotfiles"
 
+# Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138
 help: banner ## Help
-	@exit 0
-
-.PHONY: arch cli install install-arch-cli dotpath banner list update deploy execshell debug help
+	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
