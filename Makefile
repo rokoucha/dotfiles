@@ -31,26 +31,26 @@ export DOTFILES_CONF
 PACMAN_S := yay -S --noconfirm --needed
 LN := /usr/bin/ln -sfv
 
-##@ Task for Applications
-asdf: git ## Asdf
+##@ Application tasks
+asdf: git ## Install asdf-vm
 	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
 
-dircolos: git ## dircolor
+dircolos: git ## Install Monokai theme for dircolors
 	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
 
-docker: ## Docker
+docker: ## Install Docker
 	$(PACMAN_S) docker docker-compose
 	sudo gpasswd -a $$(whoami) docker
 	sudo systemctl enable docker.service
 	@echo "===> Required reboot before using Docker"
 
-git : ## Git
+git : ## Install Git
 	$(PACMAN_S) git
 
-vim: ## Vim
+vim: ## Install Vim
 	$(PACMAN_S) vim
 
-vundle: git ## Vundle
+vundle: git ## Install Vundle
 	@if type vim >/dev/null 2>&1; then \
 		git clone https://github.com/VundleVim/Vundle.vim.git "$(INSTALL_PATH)/.vim/bundle/Vundle.vim"; \
 		vim +PluginInstall +qall; \
@@ -59,11 +59,11 @@ vundle: git ## Vundle
 		exit 1; \
 	fi
 
-xdg-user-dirs: ## XDG user directories
+xdg-user-dirs: ## Install XDG user directories
 	$(PACMAN_S) xdg-user-dirs
 	env LC_ALL=C xdg-user-dirs-update
 
-yay: git ## Yay
+yay: git ## Install Yay
 	@if ! type yay >/dev/null 2>&1; then \
 		$(eval YAY_TEMP := $(shell mktemp -d)) \
 		git clone https://aur.archlinux.org/yay.git "$(YAY_TEMP)"; \
@@ -71,39 +71,39 @@ yay: git ## Yay
 		rm -rf "$(YAY_TEMP)"; \
 	fi
 
-zsh: ## Zsh
+zsh: ## Install Z Shell
 	$(PACMAN_S) fzf ghq powerline zsh
 
-zplugin: git ## Zplugin
+zplugin: git ## Install Zplugin
 	git clone https://github.com/zdharma/zplugin.git "$(INSTALL_PATH)/.zplugin/bin"
 
-zprezto: ## Prezto
+zprezto: ## Install Prezto
 	@$(LN) "$(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
-##@ Task targets
+##@ Group tasks
 .PHONY: arch cli
 
-arch: yay docker vim zsh
+arch-cli: yay docker vim zsh ## Install Arch Linux CLI applications
 
-cli: dircolos vundle zplugin zprezto asdf ## Fetch zsh applications
+cli: dircolos vundle zplugin zprezto asdf ## Install CLI applications
 
-##@ Task for Setup
+##@ Setup tasks
 .PHONY: install install-arch-cli
 
-install: deploy cli execshell ## Setup cli envirpnment
+install: deploy cli execshell ## Setup CLI envirpnment
 
-install-arch-cli: deploy arch cli execshell ## Setup Arch cli environment
+install-arch-cli: deploy arch-cli cli execshell ## Setup Arch Linux CLI environment
 
-##@ Task for dotfiles
+##@ Management tasks
 .PHONY: dotpath banner list update deploy execshell debug help
 
-dotpath: ## Echo dotfile path
+dotpath: ## Print dotfiles path
 	@echo "$(DOTFILES_PATH)"
 
-banner: ## Print banner
+banner: ## Print a banner
 	@echo "$$BANNER"
 
-list: banner ## Listing dotfiles
+list: banner ## Print a list of dotfiles
 	@echo "===> Listing dotfiles in $(DOTFILES_PATH)"
 	@$(foreach dotfile,$(DOTFILES),/usr/bin/ls -F "$(dotfile)";)
 
@@ -122,12 +122,12 @@ execshell: ## Reboot shell
 	@echo "===> Successfully completed! Rebooting shell..."
 	exec "$$SHELL"
 
-debug: banner ## Debugging with Docker
+debug: banner ## Debug with Docker
 	@echo "===> Debug dotfiles with Docker"
 	@sh -c "cd \"$(MAKEFILE_DIR)\"; docker-compose build --pull; docker-compose run --rm dotfiles"
 
 # Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138
 help: banner ## Help
-	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
