@@ -32,10 +32,10 @@ PACMAN_S := yay -S --noconfirm --needed
 LN := /usr/bin/ln -sfv
 
 ##@ Application tasks
-asdf: git ## Install asdf-vm
+asdf: ## Install asdf-vm
 	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
 
-dircolos: git ## Install Monokai theme for dircolors
+dircolos: ## Install Monokai theme for dircolors
 	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
 
 docker: ## Install Docker
@@ -44,13 +44,20 @@ docker: ## Install Docker
 	sudo systemctl enable docker.service
 	@echo "===> Required reboot before using Docker"
 
-git : ## Install Git
+git: ## Install Git
 	$(PACMAN_S) git
+
+gnupg: ## Install GnuPG
+	$(PACMAN_S) gnupg
+
+openssh: ## Install OpenSSH
+	$(PACMAN_S) openssh
+	ssh-keygen -t ed25519 -N ""
 
 vim: ## Install Vim
 	$(PACMAN_S) vim
 
-vundle: git ## Install Vundle
+vundle: ## Install Vundle
 	@if type vim >/dev/null 2>&1; then \
 		git clone https://github.com/VundleVim/Vundle.vim.git "$(INSTALL_PATH)/.vim/bundle/Vundle.vim"; \
 		vim +PluginInstall +qall; \
@@ -72,7 +79,7 @@ yay: git ## Install Yay
 	fi
 
 zsh: ## Install Z Shell
-	$(PACMAN_S) fzf ghq powerline zsh
+	$(PACMAN_S) fzf ghq powerline shellcheck zsh
 
 zplugin: git ## Install Zplugin
 	git clone https://github.com/zdharma/zplugin.git "$(INSTALL_PATH)/.zplugin/bin"
@@ -83,7 +90,7 @@ zprezto: ## Install Prezto
 ##@ Group tasks
 .PHONY: arch cli
 
-arch-cli: yay docker vim zsh ## Install Arch Linux CLI applications
+arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
 
 cli: dircolos vundle zplugin zprezto asdf ## Install CLI applications
 
