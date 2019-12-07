@@ -77,6 +77,7 @@ yay: git ## Install Yay
 		sh -c "cd \"$(YAY_TEMP)\"; makepkg -sri --noconfirm"; \
 		rm -rf "$(YAY_TEMP)"; \
 	fi
+	yay -Syu --noconfirm
 
 zsh: ## Install Z Shell
 	$(PACMAN_S) fzf ghq powerline shellcheck zsh
@@ -102,7 +103,7 @@ install: deploy cli execshell ## Setup CLI envirpnment
 install-arch-cli: deploy arch-cli cli execshell ## Setup Arch Linux CLI environment
 
 ##@ Management tasks
-.PHONY: dotpath banner list update deploy execshell debug help
+.PHONY: dotpath banner list update deploy clean execshell debug help
 
 dotpath: ## Print dotfiles path
 	@echo "$(DOTFILES_PATH)"
@@ -124,6 +125,16 @@ deploy: banner ## Deploy dotfiles
 	@echo "===> Dotfiles has been successfully deployed!"
 	@mkdir -p "$(dir $(DOTFILES_CONF_PATH))"
 	@echo "$$DOTFILES_CONF" > "$(DOTFILES_CONF_PATH)"
+
+clean: banner ## Clean dotfiles in INSTALL_PATH
+	@echo "===> Clean dotfiles in $(INSTALL_PATH)"
+	@$(foreach dotfile,$(DOTFILES), \
+		if [ -L "$(INSTALL_PATH)/$(dotfile)" ]; then \
+			rm -fv "$(INSTALL_PATH)/$(dotfile)"; \
+		else \
+			echo "===> $(INSTALL_PATH)/$(dotfile) is not managed by dotfiles and will not be deleted!"; \
+		fi;)
+	@echo "===> Dotfiles has been successfully cleaned!"
 
 execshell: ## Reboot shell
 	@echo "===> Successfully completed! Rebooting shell..."
