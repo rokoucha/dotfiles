@@ -68,6 +68,6 @@ fi
 
 pushd "$DOTFILES_PATH" > /dev/null || exit
 
-make "$@"
+make --no-print-directory "$@"
 
 popd > /dev/null || exit
