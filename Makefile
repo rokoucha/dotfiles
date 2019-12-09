@@ -126,7 +126,7 @@ deploy: banner ## Deploy dotfiles
 	@mkdir -p "$(dir $(DOTFILES_CONF_PATH))"
 	@echo "$$DOTFILES_CONF" > "$(DOTFILES_CONF_PATH)"
 
-upgrade: update deploy ## Update and deploy dotfiles
+upgrade: update clean deploy ## Update and deploy dotfiles
 
 clean: banner ## Clean dotfiles in INSTALL_PATH
 	@echo "===> Clean dotfiles in $(INSTALL_PATH)"
