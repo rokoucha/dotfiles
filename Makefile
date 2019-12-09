@@ -103,7 +103,7 @@ install: deploy cli execshell ## Setup CLI envirpnment
 install-arch-cli: deploy arch-cli cli execshell ## Setup Arch Linux CLI environment
 
 ##@ Management tasks
-.PHONY: dotpath banner list update deploy clean execshell debug help
+.PHONY: dotpath banner list update deploy upgrade clean execshell debug help
 
 dotpath: ## Print dotfiles path
 	@echo "$(DOTFILES_PATH)"
@@ -125,6 +125,8 @@ deploy: banner ## Deploy dotfiles
 	@echo "===> Dotfiles has been successfully deployed!"
 	@mkdir -p "$(dir $(DOTFILES_CONF_PATH))"
 	@echo "$$DOTFILES_CONF" > "$(DOTFILES_CONF_PATH)"
+
+upgrade: update deploy ## Update and deploy dotfiles
 
 clean: banner ## Clean dotfiles in INSTALL_PATH
 	@echo "===> Clean dotfiles in $(INSTALL_PATH)"
