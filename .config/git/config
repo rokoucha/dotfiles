@@ -1,8 +1,20 @@
 [core]
     editor = vim
+    pager = less
+
+[color]
+    ui = auto
+    status = auto
+    diff = auto
+    branch = auto
+    interactive = auto
+    grep = auto
 
 [ghq]
     root = ~/Projects
 
 [ghq "https://github.com/"]
     vcs = git
+
+[include]
+    path = config.local
