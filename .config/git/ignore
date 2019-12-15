@@ -1,21 +1,6 @@
 
-# Created by https://www.gitignore.io/api/ssh,zsh,git,vim,code,linux,intellij,archlinuxpackages
-# Edit at https://www.gitignore.io/?templates=ssh,zsh,git,vim,code,linux,intellij,archlinuxpackages
-
-### ArchLinuxPackages ###
-*.tar
-*.tar.*
-*.jar
-*.exe
-*.msi
-*.zip
-*.tgz
-*.log
-*.log.*
-*.sig
-
-pkg/
-src/
+# Created by https://www.gitignore.io/api/ssh,zsh,git,vim,code,linux,intellij
+# Edit at https://www.gitignore.io/?templates=ssh,zsh,git,vim,code,linux,intellij
 
 ### Code ###
 .vscode/*
