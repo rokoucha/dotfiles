@@ -270,6 +270,10 @@ install: deploy cli execshell ## Setup CLI envirpnment
 
 install-arch-cli: deploy arch-cli cli execshell ## Setup Arch Linux CLI environment
 
+install-arch-gui: deploy arch-cli arch-gui cli execshell ## Setup Arch Linux GUI environment
+
+install-thinkpad-a285: deploy arch-cli arch-gui thinkpad-a285 cli execshell ## Setup Arch Linux environment for ThinkPad A285
+
 ##@ Management tasks
 .PHONY: dotpath banner list update deploy upgrade clean execshell debug help
 
