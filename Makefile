@@ -264,7 +264,7 @@ thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 cli: dircolos vundle zplugin zprezto asdf ## Install shell applications
 
 ##@ Setup group tasks
-.PHONY: install install-arch-cli
+.PHONY: install install-arch-cli install-arch-gui install-thinkpad-a285
 
 install: deploy cli execshell ## Setup CLI envirpnment
 
