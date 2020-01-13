@@ -231,15 +231,15 @@ yay: ## Install Yay
 
 yubikey: ## Install YubiKey tools
 	$(PACMAN_S) pcsc-tools \
-		pcsclite \
 		libu2f-host \
+		pcsclite \
 		yubico-c \
 		yubico-c-client \
 		yubikey-manager \
 		yubikey-manager-qt \
 		yubikey-personalization \
 		yubikey-personalization-gui \
-		yubioath-desktop\
+		yubioath-desktop
 	$(SYSTEMCTL_ENABLE) --now pcscd.service
 
 zsh: ## Install Z Shell
