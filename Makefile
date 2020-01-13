@@ -175,7 +175,7 @@ openssh: ## Install OpenSSH
 	$(PACMAN_S) openssh
 	-ssh-keygen -f "$(INSTALL_PATH)/.ssh/id_ed25519" -N "" -t ed25519
 
-radeon: ## Intall Radeon drivers
+radeon: ## Install Radeon drivers
 	$(PACMAN_S) lib32-libva-mesa-driver \
 		libva-mesa-driver \
 		light \
@@ -253,13 +253,15 @@ zprezto: ## Install Prezto
 	@$(LN) "$(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
 ##@ Group tasks
-.PHONY: arch-cli arch-gui cli
+.PHONY: arch-cli arch-gui thinkpad-a285 cli
 
 arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
 
-arch-gui: audio bluetooth code cups discord firefox fonts filemanager networkmanager skk slack yubikey ## Install Arch Linux GUI applications
+arch-gui: audio bluetooth code cups discord filemanager firefox fonts gtk i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
 
-cli: dircolos vundle zplugin zprezto asdf ## Install CLI applications
+thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
+
+cli: dircolos vundle zplugin zprezto asdf ## Install shell applications
 
 ##@ Setup group tasks
 .PHONY: install install-arch-cli
