@@ -143,26 +143,17 @@ git: ## Install Git
 gnupg: ## Install GnuPG
 	$(PACMAN_S) gnupg
 
+gtk: ## Install GTK
+	$(PACMAN_S) gnome-themes-extra lxappearance 
+
 i3: ## Install i3
-	$(YAY_S) arandr \
+	$(YAY_S) i3-gaps \
 		dmenu2 \
 		gnome-backgrounds \
-		gnome-themes-extra \
-		i3-gaps \
-		light-locker \
-		lightdm \
-		lightdm-gtk-greeter \
-		lxappearance \
 		network-manager-applet \
 		nitrogen \
 		polybar \
-		volumeicon \
-		xorg-server \
-		xorg-xinit \
-		xorg-xrandr \
-		xorg-xrdb
-	$(SYSTEMCTL_ENABLE) --now lightdm.service
-	$(SYSTEMCTL_ENABLE) --now light-locker.service
+		volumeicon
 
 networkmanager: ## Install NetworkManager
 	$(PACMAN_S) dhclient networkmanager
@@ -219,6 +210,15 @@ vundle: ## Install Vundle
 xdg-user-dirs: ## Install XDG user directories
 	$(PACMAN_S) xdg-user-dirs
 	env LC_ALL=C xdg-user-dirs-update
+
+xorg: ## Install Xorg server
+	$(PACMAN_S) arandr \
+		gdm \
+		xorg-server \
+		xorg-xinit \
+		xorg-xrandr \
+		xorg-xrdb
+	$(SYSTEMCTL_ENABLE) --now gdm.service
 
 yay: ## Install Yay
 	@if ! type yay >/dev/null 2>&1; then \
