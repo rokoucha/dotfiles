@@ -11,6 +11,7 @@ export BANNER
 
 # Settings
 EXCLUSION := .git/\* docker-compose.yml Dockerfile LICENSE Makefile README.md
+USERNAME := rokoucha
 
 # System variable
 INSTALL_PATH := $(if $(INSTALL_PATH),$(INSTALL_PATH),$(HOME))
@@ -28,21 +29,113 @@ endef
 export DOTFILES_CONF
 
 # Aliases
-PACMAN_S := yay -S --noconfirm --needed
+GPASSWD_A := sudo gpasswd -a $$(whoami)
+INFO := @echo "===>"
 LN := /usr/bin/ln -sfv
+PACMAN_S := sudo pacman -S --noconfirm --needed
+SYSTEMCTL_ENABLE := sudo systemctl enable
+YAY_S := yay -S --noconfirm --needed
+
+##@ Setup tasks(Required root shell)
+pacstrap: ## Pacstrap
+	pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim git zsh
+	genfstab -U /mnt >> /mnt/etc/fstab
+
+ryzen: ## Install Ryzen tools
+	pacman -S amd-ucode
+	echo "===> Required manual add `initrd	/amd-ucode.img` to /boot/loader/entries/arch.conf"
+
+f2fs: ## Install F2FS tools
+	pacman -S f2fs-tools
+
+xfs: ## Install XFS tools
+	pacman -S xfsprogs
+
+pacmanconf: ## Setup Pacman
+	sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+	sed -i -e 's/^CFLAGS=.*/CFLAGS="-march=native -O2 -pipe -fstack-protector-strong"/g' /etc/makepkg.conf
+	sed -i -e 's/^CXXFLAGS=.*/CXXFLAGS="${CFLAGS}"/g' /etc/makepkg.conf
+	sed -i -e 's/^#MAKEFLAGS=.*/MAKEFLAGS="-j\$(nproc)"/g' /etc/makepkg.conf
+	sed -i -e "s/^PKGEXT=.*$/PKGEXT='.pkg.tar'/g" /etc/makepkg.conf
+
+mirrorlist: ## Mirrorlist
+	curl -sL "https://www.archlinux.org/mirrorlist/?country=JP&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /etc/pacman.d/mirrorlist
+	sed -i -e "s/#Server/Server/g" /etc/pacman.d/mirrorlist
+
+localization: ## Timezone & Language
+	ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+	hwclock --systohc --utc
+	timedatectl set-local-rtc false
+	sed -i -e "s/^#NTP=.*$/NTP=0.jp.pool.ntp.org 1.jp.pool.ntp.org 2.jp.pool.ntp.org 3.jp.pool.ntp.org/g" /etc/systemd/timesyncd.conf
+	timedatectl set-ntp true
+	echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
+	locale-gen
+	echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+	echo "FONT=Lat2-Terminus16" > /etc/vconsole.conf
+	echo "KEYMAP=us" > /etc/vconsole.conf
+
+user: ## Create user
+	useradd -G wheel -m -s /usr/bin/zsh $(rokoucha)
+	echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+systemdboot: ## Setup bootloader
+	bootctl --path=/boot install
+	echo "default	arch" > /boot/loader/loader.conf
+	echo "timeout	1" >> /boot/loader/loader.conf
+	echo "editor	no" >> /boot/loader/loader.conf
+	echo "title	Arch Linux" > /boot/loader/entries/arch.conf
+	echo "linux	/vmlinuz-linux-zen" >> /boot/loader/entries/arch.conf
+	echo "initrd	/initramfs-linux-zen.img" >> /boot/loader/entries/arch.conf
+	echo "options	root=PARTLABEL=root rw" >> /boot/loader/entries/arch.conf
 
 ##@ Application tasks
 asdf: ## Install asdf-vm
 	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
 
+audio: ## Install ALSA & PulseAudio
+	$(PACMAN_S) alsa-utils pulseaudio-alsa pavucontrol
+
+bluetooth: ## Install Bluetooth
+	$(PACMAN_S) bluez bluez-utils blueberry
+	$(GPASSWD_A) lp
+	$(SYSTEMCTL_ENABLE) bluetooth.service
+	$(INFO) "Required reboot before using Bluetooth"
+
+code: ## Install Visual Studio Code
+	$(PACMAN_S) code
+
+cups: ## Install CUPS
+	$(PACMAN_S) cups cups-pdf
+	$(GPASSWD_A) cups
+	$(SYSTEMCTL_ENABLE) org.cups.cupsd.service
+	$(INFO) "Required reboot before using CUPS"
+	$(INFO) "Required manual install printer driver"
+
 dircolos: ## Install Monokai theme for dircolors
 	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
 
+discord: ## Install Discord
+	$(PACMAN_S) discord
+
 docker: ## Install Docker
 	$(PACMAN_S) docker docker-compose
-	sudo gpasswd -a $$(whoami) docker
-	sudo systemctl enable docker.service
-	@echo "===> Required reboot before using Docker"
+	$(GPASSWD_A) docker
+	$(SYSTEMCTL_ENABLE) docker.service
+	$(INFO) "Required reboot before using Docker"
+
+filemanager: ## Install File manager
+	$(PACMAN_S) nautilus file-roller eog evince
+
+firefox: ## Install Firefox Developer Edition
+	$(PACMAN_S) firefox-developer-edition firefox-developer-edition-i18n-en-gb
+
+fonts: ## Install Fonts
+	$(YAY_S) fontconfig \
+		adobe-source-code-pro-fonts \
+		adobe-source-han-sans-jp-fonts \
+		adobe-source-han-serif-jp-fonts \
+		nerd-fonts-dejavu-complete \
+		noto-fonts-emoji
 
 git: ## Install Git
 	$(PACMAN_S) git
@@ -50,9 +143,66 @@ git: ## Install Git
 gnupg: ## Install GnuPG
 	$(PACMAN_S) gnupg
 
+i3: ## Install i3
+	$(YAY_S) arandr \
+		dmenu2 \
+		gnome-backgrounds \
+		gnome-themes-extra \
+		i3-gaps \
+		light-locker \
+		lightdm \
+		lightdm-gtk-greeter \
+		lxappearance \
+		network-manager-applet \
+		nitrogen \
+		polybar \
+		volumeicon \
+		xorg-server \
+		xorg-xinit \
+		xorg-xrandr \
+		xorg-xrdb
+	$(SYSTEMCTL_ENABLE) --now lightdm.service
+	$(SYSTEMCTL_ENABLE) --now light-locker.service
+
+networkmanager: ## Install NetworkManager
+	$(PACMAN_S) dhclient networkmanager
+	$(SYSTEMCTL_ENABLE) --now NetworkManager.service
+
+opal: ## Install OPAL Self-Encrypting Drive tools
+	$(YAY_S) sedutil
+	curl -sOL https://github.com/Drive-Trust-Alliance/exec/raw/master/UEFI64.img.gz
+	gunzip UEFI64.img.gz
+	$(INFO) "Required manual operation!"
+	$(INFO) "sedutil-cli needs libata.allow_tpm=1"
+	$(INFO)
+	$(INFO) "Initialize OPAL: `# sedutil-cli --initialsetup <password> <drive>`"
+	$(INFO) "Install PBA image: `# sedutil-cli --loadPBAimage <password> UEFI64.img <drive>`"
+	$(INFO) "Enable SED: `# sedutil-cli --setMBREnable on <password> <drive>`"
+	$(INFO) "Enable locking: `# sedutil-cli --enableLockingRange 0 <password> <drive>`"
+
 openssh: ## Install OpenSSH
 	$(PACMAN_S) openssh
 	-ssh-keygen -f "$(INSTALL_PATH)/.ssh/id_ed25519" -N "" -t ed25519
+
+radeon: ## Intall Radeon drivers
+	$(PACMAN_S) lib32-libva-mesa-driver \
+		libva-mesa-driver \
+		light \
+		mesa \
+		vulkan-radeon \
+		xf86-video-amdgpu
+	sudo chmod +s /usr/bin/light
+
+skk: ## Install SKK
+	$(PACMAN_S) ibus ibus-skk skk-jisyo skktools
+
+slack: ## Install Slack
+	$(YAY_S) slack-desktop
+
+tlp: ## Install TLP
+	$(YAY_S) tlp tlpui-git acpi_call lm_sensors xsensors
+	sed -i -e "s/^#?RUNTIME_PM_ON_BAT=.+$/RUNTIME_PM_ON_BAT=on/g" /etc/default/tlp
+	$(SYSTEMCTL_ENABLE) --now tlp.service
 
 vim: ## Install Vim
 	$(PACMAN_S) vim
@@ -70,32 +220,48 @@ xdg-user-dirs: ## Install XDG user directories
 	$(PACMAN_S) xdg-user-dirs
 	env LC_ALL=C xdg-user-dirs-update
 
-yay: git ## Install Yay
+yay: ## Install Yay
 	@if ! type yay >/dev/null 2>&1; then \
 		$(eval YAY_TEMP := $(shell mktemp -d)) \
 		git clone https://aur.archlinux.org/yay.git "$(YAY_TEMP)"; \
 		sh -c "cd \"$(YAY_TEMP)\"; makepkg -sri --noconfirm"; \
 		rm -rf "$(YAY_TEMP)"; \
 	fi
-	yay -Syu --noconfirm
+	yay -Syyu --noconfirm
+
+yubikey: ## Install YubiKey tools
+	$(PACMAN_S) pcsc-tools \
+		pcsclite \
+		libu2f-host \
+		yubico-c \
+		yubico-c-client \
+		yubikey-manager \
+		yubikey-manager-qt \
+		yubikey-personalization \
+		yubikey-personalization-gui \
+		yubioath-desktop\
+	$(SYSTEMCTL_ENABLE) --now pcscd.service
 
 zsh: ## Install Z Shell
-	$(PACMAN_S) fzf ghq powerline shellcheck zsh
+	$(YAY_S) fzf ghq powerline shellcheck zsh
 
-zplugin: git ## Install Zplugin
+zplugin: ## Install Zplugin
 	git clone https://github.com/zdharma/zplugin.git "$(INSTALL_PATH)/.zplugin/bin"
+	zsh -i -c "exit"
 
 zprezto: ## Install Prezto
 	@$(LN) "$(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
 ##@ Group tasks
-.PHONY: arch cli
+.PHONY: arch-cli arch-gui cli
 
 arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
 
+arch-gui: audio bluetooth code cups discord firefox fonts filemanager networkmanager skk slack yubikey ## Install Arch Linux GUI applications
+
 cli: dircolos vundle zplugin zprezto asdf ## Install CLI applications
 
-##@ Setup tasks
+##@ Setup group tasks
 .PHONY: install install-arch-cli
 
 install: deploy cli execshell ## Setup CLI envirpnment
@@ -148,6 +314,6 @@ debug: banner ## Debug with Docker
 
 # Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138
 help: banner ## Help
-	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
