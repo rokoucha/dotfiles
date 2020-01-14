@@ -71,8 +71,10 @@ localization: ## Timezone & Language
 	echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
 	locale-gen
 	echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+	localectl set-locale "LANG=en_GB.UTF-8"
 	echo "FONT=Lat2-Terminus16" > /etc/vconsole.conf
 	echo "KEYMAP=us" > /etc/vconsole.conf
+	localectl set-keymap us
 
 user: ## Create user
 	useradd -G wheel -m -s /usr/bin/zsh $(rokoucha)
@@ -230,6 +232,7 @@ xorg: ## Install Xorg server
 		xorg-xinit \
 		xorg-xrandr \
 		xorg-xrdb
+	sudo localectl set-x11-keymap 'us' '' '' 'ctrl:nocaps'
 	$(SYSTEMCTL_ENABLE) --now gdm.service
 
 yay: ## Install Yay
