@@ -269,7 +269,7 @@ zprezto: ## Install Prezto
 
 arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
 
-arch-gui: audio bluetooth code cups discord filemanager firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
+arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
 
 thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
