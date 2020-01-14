@@ -123,9 +123,6 @@ docker: ## Install Docker
 	$(SYSTEMCTL_ENABLE) docker.service
 	$(INFO) "Required reboot before using Docker"
 
-filemanager: ## Install File manager
-	$(PACMAN_S) nautilus file-roller eog evince
-
 firefox: ## Install Firefox Developer Edition
 	$(PACMAN_S) firefox-developer-edition firefox-developer-edition-i18n-en-gb
 
@@ -143,15 +140,30 @@ git: ## Install Git
 gnupg: ## Install GnuPG
 	$(PACMAN_S) gnupg
 
-gtk: ## Install GTK
-	$(PACMAN_S) gnome-themes-extra lxappearance 
+gui-tools: ## Install GUI tools
+	$(PACMAN_S) \
+		eog \
+		evince \
+		file-roller \
+		flameshot \
+		gnome-backgrounds \
+		gnome-calculator \
+		gnome-themes-extra \
+		kitty \
+		kitty-terminfo \
+		nautilus \
+		network-manager-applet \
+		pinta
 
 i3: ## Install i3
-	$(YAY_S) i3-gaps \
+	$(YAY_S) \
 		dmenu2 \
-		gnome-backgrounds \
-		network-manager-applet \
+		gnome-screensaver \
+		i3-gaps \
+		lxappearance \
 		nitrogen \
+		notify-osd \
+		polkit-gnome \
 		polybar \
 		volumeicon
 
@@ -257,7 +269,7 @@ zprezto: ## Install Prezto
 
 arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
 
-arch-gui: audio bluetooth code cups discord filemanager firefox fonts gtk i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
+arch-gui: audio bluetooth code cups discord filemanager firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
 
 thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
@@ -320,6 +332,6 @@ debug: banner ## Debug with Docker
 
 # Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138
 help: banner ## Help
-	@awk 'BEGIN {FS = ":.*##"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-17s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help

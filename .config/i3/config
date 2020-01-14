@@ -26,18 +26,16 @@ font pango:Sans 10
 
 # autorun
 exec_always --no-startup-id $HOME/.local/bin/polybar-launcher.sh
-exec --no-startup-id xscreensaver -no-splash
-exec --no-startup-id xhost +
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id compton -b
-exec --no-startup-id xsetroot -cursor_name left_ptr
-exec --no-startup-id lxpolkit
 exec --no-startup-id flameshot
+exec --no-startup-id gnome-screensaver
 exec --no-startup-id ibus-daemon -drx
-exec --no-startup-id volumeicon
-exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
 exec --no-startup-id xrdb ~/.Xresources
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec --no-startup-id xsetroot -cursor_name left_ptr
 
 # set Mod key
 set $mod Mod4
@@ -220,9 +218,9 @@ mode "resize" {
 bindsym $mod+i mode "resize"
 
 # power menu
-set $mode_system System (l) lock, (e) logout, (r) reboot, (s) shutdown
+set $mode_system System (l) Lock, (e) Exit i3, (r) Reboot, (s) Shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id xscreensaver-command --lock, mode "default"
+    bindsym l exec --no-startup-id gnome-screensaver-command --lock, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym s exec --no-startup-id systemctl poweroff -i, mode "default"
