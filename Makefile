@@ -261,12 +261,12 @@ zsh: ## Install Z Shell
 	$(YAY_S) fzf ghq powerline shellcheck zsh
 
 zinit: ## Install Zinit
-	if [[ ! -f $(INSTALL_PATH)/.zinit/bin/zinit.zsh ]]; then
-		print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-		command mkdir -p "$(INSTALL_PATH)/.zinit" && command chmod g-rwX "$(INSTALL_PATH)/.zinit"
+	@if [[ ! -f $(INSTALL_PATH)/.zinit/bin/zinit.zsh ]]; then \
+		print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" \
+		command mkdir -p "$(INSTALL_PATH)/.zinit" && command chmod g-rwX "$(INSTALL_PATH)/.zinit" \
 		command git clone https://github.com/zdharma/zinit "$(INSTALL_PATH)/.zinit/bin" && \
 			print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-			print -P "%F{160}▓▒░ The clone has failed.%f%b"
+			print -P "%F{160}▓▒░ The clone has failed.%f%b"; \
 	fi
 	zsh -i -c "exit"
 
