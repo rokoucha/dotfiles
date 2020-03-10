@@ -260,12 +260,18 @@ yubikey: ## Install YubiKey tools
 zsh: ## Install Z Shell
 	$(YAY_S) fzf ghq powerline shellcheck zsh
 
-zplugin: ## Install Zplugin
-	git clone https://github.com/zdharma/zplugin.git "$(INSTALL_PATH)/.zplugin/bin"
+zinit: ## Install Zinit
+	if [[ ! -f $(INSTALL_PATH)/.zinit/bin/zinit.zsh ]]; then
+		print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+		command mkdir -p "$(INSTALL_PATH)/.zinit" && command chmod g-rwX "$(INSTALL_PATH)/.zinit"
+		command git clone https://github.com/zdharma/zinit "$(INSTALL_PATH)/.zinit/bin" && \
+			print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+			print -P "%F{160}▓▒░ The clone has failed.%f%b"
+	fi
 	zsh -i -c "exit"
 
 zprezto: ## Install Prezto
-	@$(LN) "$(INSTALL_PATH)/.zplugin/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
+	@$(LN) "$(INSTALL_PATH)/.zinit/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
 ##@ Group tasks
 .PHONY: arch-cli arch-gui thinkpad-a285 cli
@@ -276,7 +282,7 @@ arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 networkma
 
 thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
-cli: dircolos vundle zplugin zprezto asdf ## Install shell applications
+cli: dircolos vundle zinit zprezto asdf ## Install shell applications
 
 ##@ Setup group tasks
 .PHONY: install install-arch-cli install-arch-gui install-thinkpad-a285
