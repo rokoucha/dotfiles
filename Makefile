@@ -114,7 +114,7 @@ cups: ## Install CUPS
 	$(INFO) "Required manual install printer driver"
 
 dircolos: ## Install Monokai theme for dircolors
-	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
+	curl -sL "https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai" > "$(INSTALL_PATH)/.dircolors"
 
 discord: ## Install Discord
 	$(PACMAN_S) discord
@@ -175,7 +175,7 @@ networkmanager: ## Install NetworkManager
 
 opal: ## Install OPAL Self-Encrypting Drive tools
 	$(YAY_S) sedutil
-	curl -sOL https://github.com/Drive-Trust-Alliance/exec/raw/master/UEFI64.img.gz
+	curl -sOL "https://github.com/Drive-Trust-Alliance/exec/raw/master/UEFI64.img.gz"
 	gunzip UEFI64.img.gz
 	$(INFO) "Required manual operation!"
 	$(INFO) "sedutil-cli needs libata.allow_tpm=1"
@@ -242,7 +242,7 @@ yay: ## Install Yay
 		sh -c "cd \"$(YAY_TEMP)\"; makepkg -sri --noconfirm"; \
 		rm -rf "$(YAY_TEMP)"; \
 	fi
-	yay -Syyu --noconfirm
+	yay -Syyu --noconfirm --needed
 
 yubikey: ## Install YubiKey tools
 	$(PACMAN_S) pcsc-tools \
@@ -305,31 +305,31 @@ banner: ## Print a banner
 	@echo "$$BANNER"
 
 list: banner ## Print a list of dotfiles
-	@echo "===> Listing dotfiles in $(DOTFILES_PATH)"
+	$(INFO) "Listing dotfiles in $(DOTFILES_PATH)"
 	@$(foreach dotfile,$(DOTFILES),/usr/bin/ls -F "$(dotfile)";)
 
 update: banner ## Update dotfiles
-	@echo "===> Update dotfiles"
+	$(INFO) "Update dotfiles"
 	@git pull origin master
 
 deploy: banner ## Deploy dotfiles
-	@echo "===> Deploy dotfiles to $(INSTALL_PATH)"
+	$(INFO) "Deploy dotfiles to $(INSTALL_PATH)"
 	@$(foreach dotfile,$(DOTFILES),mkdir -p "$(INSTALL_PATH)/$(dir $(dotfile))"; $(LN) "$(abspath $(dotfile))" "$(INSTALL_PATH)/$(dotfile)";)
-	@echo "===> Dotfiles has been successfully deployed!"
+	$(INFO) "Dotfiles has been successfully deployed!"
 	@mkdir -p "$(dir $(DOTFILES_CONF_PATH))"
 	@echo "$$DOTFILES_CONF" > "$(DOTFILES_CONF_PATH)"
 
 upgrade: clean update deploy ## Update and deploy dotfiles
 
 clean: banner ## Clean dotfiles in INSTALL_PATH
-	@echo "===> Clean dotfiles in $(INSTALL_PATH)"
+	$(INFO) "Clean dotfiles in $(INSTALL_PATH)"
 	@$(foreach dotfile,$(DOTFILES), \
 		if [ -L "$(INSTALL_PATH)/$(dotfile)" ]; then \
 			rm -fv "$(INSTALL_PATH)/$(dotfile)"; \
 		else \
 			echo "===> $(INSTALL_PATH)/$(dotfile) is not managed by dotfiles and will not be deleted!"; \
 		fi;)
-	@echo "===> Dotfiles has been successfully cleaned!"
+	$(INFO) "Dotfiles has been successfully cleaned!"
 
 clean-broken-link: ## Cleaning broken links in INSTALL_PATH
 	$(INFO) "Cleaning broken links in $(INSTALL_PATH)"
@@ -339,11 +339,11 @@ clean-broken-link: ## Cleaning broken links in INSTALL_PATH
 	@find -L $(INSTALL_PATH)/.config -type l -delete
 
 execshell: ## Reboot shell
-	@echo "===> Successfully completed! Rebooting shell..."
+	$(INFO) "Successfully completed! Rebooting shell..."
 	exec "$$SHELL"
 
 debug: banner ## Debug with Docker
-	@echo "===> Debug dotfiles with Docker"
+	$(INFO) "Debug dotfiles with Docker"
 	@sh -c "cd \"$(MAKEFILE_DIR)\"; docker-compose build --pull; docker-compose run --rm dotfiles"
 
 # Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138
