@@ -296,7 +296,7 @@ install-arch-gui: deploy arch-cli arch-gui cli execshell ## Setup Arch Linux GUI
 install-thinkpad-a285: deploy arch-cli arch-gui thinkpad-a285 cli execshell ## Setup Arch Linux environment for ThinkPad A285
 
 ##@ Management tasks
-.PHONY: dotpath banner list update deploy upgrade clean execshell debug help
+.PHONY: dotpath banner list update deploy upgrade clean clean-broken-link execshell debug help
 
 dotpath: ## Print dotfiles path
 	@echo "$(DOTFILES_PATH)"
@@ -330,6 +330,13 @@ clean: banner ## Clean dotfiles in INSTALL_PATH
 			echo "===> $(INSTALL_PATH)/$(dotfile) is not managed by dotfiles and will not be deleted!"; \
 		fi;)
 	@echo "===> Dotfiles has been successfully cleaned!"
+
+clean-broken-link: ## Cleaning broken links in INSTALL_PATH
+	$(INFO) "Cleaning broken links in $(INSTALL_PATH)"
+	@find -L $(INSTALL_PATH)/.zsh -type l
+	@find -L $(INSTALL_PATH)/.zsh -type l -delete
+	@find -L $(INSTALL_PATH)/.config -type l
+	@find -L $(INSTALL_PATH)/.config -type l -delete
 
 execshell: ## Reboot shell
 	@echo "===> Successfully completed! Rebooting shell..."
