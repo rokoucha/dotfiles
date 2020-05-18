@@ -31,7 +31,7 @@ export DOTFILES_CONF
 # Aliases
 GPASSWD_A := sudo gpasswd -a $$(whoami)
 INFO := @echo "===>"
-LN := /usr/bin/ln -sfv
+LN := /usr/bin/env ln -sfv
 PACMAN_S := sudo pacman -S --noconfirm --needed
 SYSTEMCTL_ENABLE := sudo systemctl enable
 YAY_S := yay -S --noconfirm --needed

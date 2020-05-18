@@ -21,7 +21,7 @@ done
 shift $((OPTIND - 1))
 
 # Get config path
-if [ -v "XDG_CONFIG_HOME" ]; then
+if [ "${XDG_CONFIG_HOME+defined}" ]; then
     DOTFILES_CONF_PATH="$XDG_CONFIG_HOME/dotfiles/config"
 else
     DOTFILES_CONF_PATH="$HOME/.config/dotfiles/config"

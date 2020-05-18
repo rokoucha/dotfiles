@@ -1,1 +1,1 @@
-export "PATH=$PATH:$HOME/.zplug/bin"
+export PATH="$HOME/.zplug/bin:$PATH"
