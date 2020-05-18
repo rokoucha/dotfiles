@@ -1,3 +1,3 @@
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     [ -r /etc/zshrc ] && . /etc/zshrc
 fi

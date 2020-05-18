@@ -1,5 +1,5 @@
 # For homebrew
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     export PATH
     export MANPATH
     typeset -U PATH path MANPATH manpath
