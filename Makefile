@@ -55,7 +55,7 @@ pacmanconf: ## Setup Pacman
 	sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 	sed -i -e 's/^CFLAGS=.*/CFLAGS="-march=native -O2 -pipe -fstack-protector-strong"/g' /etc/makepkg.conf
 	sed -i -e 's/^CXXFLAGS=.*/CXXFLAGS="$${CFLAGS}"/g' /etc/makepkg.conf
-	sed -i -e 's/^#MAKEFLAGS=.*/MAKEFLAGS="-j\$(shell nproc)"/g' /etc/makepkg.conf
+	sed -i -e 's/^#MAKEFLAGS=.*/MAKEFLAGS="-j$(shell nproc)"/g' /etc/makepkg.conf
 	sed -i -e "s/^PKGEXT=.*$$/PKGEXT='.pkg.tar'/g" /etc/makepkg.conf
 
 mirrorlist: ## Mirrorlist
