@@ -38,7 +38,7 @@ YAY_S := yay -S --noconfirm --needed
 
 ##@ Setup tasks(Required root shell)
 pacstrap: ## Pacstrap
-	pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim git zsh
+	pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim openssh git zsh
 	genfstab -U /mnt >> /mnt/etc/fstab
 
 ryzen: ## Install Ryzen tools
@@ -87,7 +87,7 @@ systemdboot: ## Setup bootloader
 	echo "title	Arch Linux" > /boot/loader/entries/arch.conf
 	echo "linux	/vmlinuz-linux-zen" >> /boot/loader/entries/arch.conf
 	echo "initrd	/initramfs-linux-zen.img" >> /boot/loader/entries/arch.conf
-	echo "options	root=PARTLABEL=root rw" >> /boot/loader/entries/arch.conf
+	echo "options	root=PARTLABEL=ROOT rw" >> /boot/loader/entries/arch.conf
 
 ##@ Application tasks
 asdf: ## Install asdf-vm
