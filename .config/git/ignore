@@ -182,3 +182,7 @@ zsdoc/data
 !/tests/_output/.gitkeep
 
 # End of https://www.gitignore.io/api/ssh,zsh,git,vim,code,linux,intellij,archlinuxpackages
+
+
+# Workspace file
+vscode.code-workspace

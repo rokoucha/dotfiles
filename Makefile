@@ -31,7 +31,7 @@ export DOTFILES_CONF
 # Aliases
 GPASSWD_A := sudo gpasswd -a $$(whoami)
 INFO := @echo "===>"
-LN := /usr/bin/ln -sfv
+LN := /usr/bin/env ln -sfv
 PACMAN_S := sudo pacman -S --noconfirm --needed
 SYSTEMCTL_ENABLE := sudo systemctl enable
 YAY_S := yay -S --noconfirm --needed
@@ -54,9 +54,9 @@ xfs: ## Install XFS tools
 pacmanconf: ## Setup Pacman
 	sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 	sed -i -e 's/^CFLAGS=.*/CFLAGS="-march=native -O2 -pipe -fstack-protector-strong"/g' /etc/makepkg.conf
-	sed -i -e 's/^CXXFLAGS=.*/CXXFLAGS="${CFLAGS}"/g' /etc/makepkg.conf
-	sed -i -e 's/^#MAKEFLAGS=.*/MAKEFLAGS="-j\$(nproc)"/g' /etc/makepkg.conf
-	sed -i -e "s/^PKGEXT=.*$/PKGEXT='.pkg.tar'/g" /etc/makepkg.conf
+	sed -i -e 's/^CXXFLAGS=.*/CXXFLAGS="$${CFLAGS}"/g' /etc/makepkg.conf
+	sed -i -e 's/^#MAKEFLAGS=.*/MAKEFLAGS="-j$(shell nproc)"/g' /etc/makepkg.conf
+	sed -i -e "s/^PKGEXT=.*$$/PKGEXT='.pkg.tar'/g" /etc/makepkg.conf
 
 mirrorlist: ## Mirrorlist
 	curl -sL "https://www.archlinux.org/mirrorlist/?country=JP&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /etc/pacman.d/mirrorlist
@@ -66,7 +66,7 @@ localization: ## Timezone & Language
 	ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 	hwclock --systohc --utc
 	timedatectl set-local-rtc false
-	sed -i -e "s/^#NTP=.*$/NTP=0.jp.pool.ntp.org 1.jp.pool.ntp.org 2.jp.pool.ntp.org 3.jp.pool.ntp.org/g" /etc/systemd/timesyncd.conf
+	sed -i -e "s/^#NTP=.*$$/NTP=0.jp.pool.ntp.org 1.jp.pool.ntp.org 2.jp.pool.ntp.org 3.jp.pool.ntp.org/g" /etc/systemd/timesyncd.conf
 	timedatectl set-ntp true
 	echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
 	locale-gen
@@ -77,8 +77,7 @@ localization: ## Timezone & Language
 	localectl set-keymap us
 
 user: ## Create user
-	useradd -G wheel -m -s /usr/bin/zsh $(rokoucha)
-	echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+	useradd -G wheel -m -s /usr/bin/zsh rokoucha
 
 systemdboot: ## Setup bootloader
 	bootctl --path=/boot install
@@ -114,7 +113,7 @@ cups: ## Install CUPS
 	$(INFO) "Required manual install printer driver"
 
 dircolos: ## Install Monokai theme for dircolors
-	curl -sL https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai > "$(INSTALL_PATH)/.dircolors"
+	curl -sL "https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai" > "$(INSTALL_PATH)/.dircolors"
 
 discord: ## Install Discord
 	$(PACMAN_S) discord
@@ -175,7 +174,7 @@ networkmanager: ## Install NetworkManager
 
 opal: ## Install OPAL Self-Encrypting Drive tools
 	$(YAY_S) sedutil
-	curl -sOL https://github.com/Drive-Trust-Alliance/exec/raw/master/UEFI64.img.gz
+	curl -sOL "https://github.com/Drive-Trust-Alliance/exec/raw/master/UEFI64.img.gz"
 	gunzip UEFI64.img.gz
 	$(INFO) "Required manual operation!"
 	$(INFO) "sedutil-cli needs libata.allow_tpm=1"
@@ -242,7 +241,7 @@ yay: ## Install Yay
 		sh -c "cd \"$(YAY_TEMP)\"; makepkg -sri --noconfirm"; \
 		rm -rf "$(YAY_TEMP)"; \
 	fi
-	yay -Syyu --noconfirm
+	yay -Syyu --noconfirm --needed
 
 yubikey: ## Install YubiKey tools
 	$(PACMAN_S) pcsc-tools \
@@ -261,12 +260,9 @@ zsh: ## Install Z Shell
 	$(YAY_S) fzf ghq powerline shellcheck zsh
 
 zinit: ## Install Zinit
-	@if [[ ! -f $(INSTALL_PATH)/.zinit/bin/zinit.zsh ]]; then \
-		print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" \
-		command mkdir -p "$(INSTALL_PATH)/.zinit" && command chmod g-rwX "$(INSTALL_PATH)/.zinit" \
-		command git clone https://github.com/zdharma/zinit "$(INSTALL_PATH)/.zinit/bin" && \
-			print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-			print -P "%F{160}▓▒░ The clone has failed.%f%b"; \
+	@if [ ! -d $(INSTALL_PATH)/.zinit/bin ]; then \
+		mkdir "$(INSTALL_PATH)/.zinit"; \
+		git clone "https://github.com/zdharma/zinit.git" "$(INSTALL_PATH)/.zinit/bin"; \
 	fi
 	zsh -i -c "exit"
 
@@ -296,7 +292,7 @@ install-arch-gui: deploy arch-cli arch-gui cli execshell ## Setup Arch Linux GUI
 install-thinkpad-a285: deploy arch-cli arch-gui thinkpad-a285 cli execshell ## Setup Arch Linux environment for ThinkPad A285
 
 ##@ Management tasks
-.PHONY: dotpath banner list update deploy upgrade clean execshell debug help
+.PHONY: dotpath banner list update deploy upgrade clean clean-broken-link execshell debug help
 
 dotpath: ## Print dotfiles path
 	@echo "$(DOTFILES_PATH)"
@@ -305,38 +301,45 @@ banner: ## Print a banner
 	@echo "$$BANNER"
 
 list: banner ## Print a list of dotfiles
-	@echo "===> Listing dotfiles in $(DOTFILES_PATH)"
+	$(INFO) "Listing dotfiles in $(DOTFILES_PATH)"
 	@$(foreach dotfile,$(DOTFILES),/usr/bin/ls -F "$(dotfile)";)
 
 update: banner ## Update dotfiles
-	@echo "===> Update dotfiles"
+	$(INFO) "Update dotfiles"
 	@git pull origin master
 
 deploy: banner ## Deploy dotfiles
-	@echo "===> Deploy dotfiles to $(INSTALL_PATH)"
+	$(INFO) "Deploy dotfiles to $(INSTALL_PATH)"
 	@$(foreach dotfile,$(DOTFILES),mkdir -p "$(INSTALL_PATH)/$(dir $(dotfile))"; $(LN) "$(abspath $(dotfile))" "$(INSTALL_PATH)/$(dotfile)";)
-	@echo "===> Dotfiles has been successfully deployed!"
+	$(INFO) "Dotfiles has been successfully deployed!"
 	@mkdir -p "$(dir $(DOTFILES_CONF_PATH))"
 	@echo "$$DOTFILES_CONF" > "$(DOTFILES_CONF_PATH)"
 
 upgrade: clean update deploy ## Update and deploy dotfiles
 
 clean: banner ## Clean dotfiles in INSTALL_PATH
-	@echo "===> Clean dotfiles in $(INSTALL_PATH)"
+	$(INFO) "Clean dotfiles in $(INSTALL_PATH)"
 	@$(foreach dotfile,$(DOTFILES), \
 		if [ -L "$(INSTALL_PATH)/$(dotfile)" ]; then \
 			rm -fv "$(INSTALL_PATH)/$(dotfile)"; \
 		else \
 			echo "===> $(INSTALL_PATH)/$(dotfile) is not managed by dotfiles and will not be deleted!"; \
 		fi;)
-	@echo "===> Dotfiles has been successfully cleaned!"
+	$(INFO) "Dotfiles has been successfully cleaned!"
+
+clean-broken-link: ## Cleaning broken links in INSTALL_PATH
+	$(INFO) "Cleaning broken links in $(INSTALL_PATH)"
+	@find -L $(INSTALL_PATH)/.zsh -type l
+	@find -L $(INSTALL_PATH)/.zsh -type l -delete
+	@find -L $(INSTALL_PATH)/.config -type l
+	@find -L $(INSTALL_PATH)/.config -type l -delete
 
 execshell: ## Reboot shell
-	@echo "===> Successfully completed! Rebooting shell..."
+	$(INFO) "Successfully completed! Rebooting shell..."
 	exec "$$SHELL"
 
 debug: banner ## Debug with Docker
-	@echo "===> Debug dotfiles with Docker"
+	$(INFO) "Debug dotfiles with Docker"
 	@sh -c "cd \"$(MAKEFILE_DIR)\"; docker-compose build --pull; docker-compose run --rm dotfiles"
 
 # Forked from https://gist.github.com/prwhite/8168133#gistcomment-2833138

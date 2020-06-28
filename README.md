@@ -4,7 +4,7 @@ Dotfiles that targetting the Arch Linux and powered by GNU Make.
 
 ## Get dotfiles
 
-You can download dotfiles to `~ / .dotfiles` with just one-lineer.
+You can download dotfiles to `~/.dotfiles` with just one-lineer.
 
     $ bash -c "$(curl -sL https://dot.rokoucha.net)"
 
