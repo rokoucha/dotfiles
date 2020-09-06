@@ -209,6 +209,15 @@ tlp: ## Install TLP
 	sed -i -e "s/^#?RUNTIME_PM_ON_BAT=.+$/RUNTIME_PM_ON_BAT=on/g" /etc/default/tlp
 	$(SYSTEMCTL_ENABLE) --now tlp.service
 
+tmux: ## Install Tmux
+	$(PACMAN_S) tmux
+
+tpm: ## Intstall Tmux Plugin Manager 
+	@if [ ! -d $(INSTALL_PATH)/.tmux/plugins/tpm ]; then \
+		mkdir -p "$(INSTALL_PATH)/.tmux/plugins"; \
+		git clone "https://github.com/tmux-plugins/tpm" "$(INSTALL_PATH)/.tmux/plugins/tpm"; \
+	fi
+
 vim: ## Install Vim
 	$(PACMAN_S) vim
 
@@ -270,27 +279,27 @@ zinit: ## Install Zinit
 zprezto: ## Install Prezto
 	@$(LN) "$(INSTALL_PATH)/.zinit/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
 
-##@ Group tasks
+##@ Install group tasks
 .PHONY: arch-cli arch-gui thinkpad-a285 cli
 
-arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh ## Install Arch Linux CLI applications
+install-arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh tmux ## Install Arch Linux CLI applications
 
-arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
+install-arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
 
-thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
+install-thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
-cli: dircolos vundle zinit zprezto asdf ## Install shell applications
+install-cli: dircolos vundle zinit zprezto asdf tpm ## Install shell applications
 
 ##@ Setup group tasks
 .PHONY: install install-arch-cli install-arch-gui install-thinkpad-a285
 
-install: deploy cli execshell ## Setup CLI envirpnment
+setup: deploy install-cli execshell ## Setup CLI envirpnment
 
-install-arch-cli: deploy arch-cli cli execshell ## Setup Arch Linux CLI environment
+setup-arch-cli: deploy install-arch-cli install-cli execshell ## Setup Arch Linux CLI environment
 
-install-arch-gui: deploy arch-cli arch-gui cli execshell ## Setup Arch Linux GUI environment
+setup-arch-gui: deploy install-arch-cli install-arch-gui install-cli execshell ## Setup Arch Linux GUI environment
 
-install-thinkpad-a285: deploy arch-cli arch-gui thinkpad-a285 cli execshell ## Setup Arch Linux environment for ThinkPad A285
+setup-thinkpad-a285: deploy install-arch-cli install-arch-gui install-thinkpad-a285 install-cli execshell ## Setup Arch Linux environment for ThinkPad A285
 
 ##@ Management tasks
 .PHONY: dotpath banner list update deploy upgrade clean clean-broken-link execshell debug help
