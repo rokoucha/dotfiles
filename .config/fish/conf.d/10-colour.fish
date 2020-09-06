@@ -1,3 +1,4 @@
+# colours
 set fish_color_normal brwhite
 set fish_color_autosuggestion brblack
 set fish_color_cancel brcyan
