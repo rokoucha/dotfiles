@@ -1,5 +1,3 @@
 if [ -n $TMUX ]
-    set -x fzf fzf-tmux
-else
-    set -x fzf fzf
+    set -x FZF_TMUX 1
 end
