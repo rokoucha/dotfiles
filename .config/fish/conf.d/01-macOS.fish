@@ -14,7 +14,7 @@ if [ (uname) = "Darwin" ]
 
     set -x MANPATH \
         (brew --prefix coreutils)/libexec/gnuman \
-        (brew --prefix ed/libexec)/gnuman \
+        (brew --prefix ed)/libexec/gnuman \
         (brew --prefix findutils)/libexec/gnuman \
         (brew --prefix gnu-sed)/libexec/gnuman \
         (brew --prefix gnu-tar)/libexec/gnuman \
