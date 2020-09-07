@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 set max $argv[2]
 set pwd (string replace "$HOME" '~' $argv[1])
