@@ -1,3 +1,3 @@
 function fish_prompt
-    echo ' ❯ '
+    printf '%s ❯ ' (set_color cyan)
 end
