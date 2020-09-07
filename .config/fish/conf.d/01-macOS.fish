@@ -1,24 +1,24 @@
 # For homebrew
 if [ (uname) = "Darwin" ]
     set -U fish_user_paths \
-        (brew --prefix coreutils)/libexec/gnubin \
-        (brew --prefix ed)/libexec/gnubin \
-        (brew --prefix findutils)/libexec/gnubin \
-        (brew --prefix gnu-sed)/libexec/gnubin \
-        (brew --prefix gnu-tar)/libexec/gnubin \
-        (brew --prefix grep)/libexec/gnubin \
-        (brew --prefix ruby)/bin \
+        /usr/local/opt/coreutils/libexec/gnubin \
+        /usr/local/opt/ed/libexec/gnubin \
+        /usr/local/opt/findutils/libexec/gnubin \
+        /usr/local/opt/gnu-sed/libexec/gnubin \
+        /usr/local/opt/gnu-tar/libexec/gnubin \
+        /usr/local/opt/grep/libexec/gnubin \
+        /usr/local/opt/ruby/bin \
         /usr/local/bin \
         /usr/local/sbin \
         $fish_user_paths
 
     set -x MANPATH \
-        (brew --prefix coreutils)/libexec/gnuman \
-        (brew --prefix ed)/libexec/gnuman \
-        (brew --prefix findutils)/libexec/gnuman \
-        (brew --prefix gnu-sed)/libexec/gnuman \
-        (brew --prefix gnu-tar)/libexec/gnuman \
-        (brew --prefix grep)/libexec/gnuman \
+        /usr/local/opt/coreutils/libexec/gnuman \
+        /usr/local/opt/ed/libexec/gnuman \
+        /usr/local/opt/findutils/libexec/gnuman \
+        /usr/local/opt/gnu-sed/libexec/gnuman \
+        /usr/local/opt/gnu-tar/libexec/gnuman \
+        /usr/local/opt/grep/libexec/gnuman \
         /usr/local/share/man \
         $MANPATH
 
