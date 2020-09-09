@@ -1,6 +1,6 @@
-set -U fish_user_paths \
+set -x PATH \
     $HOME/.local/bin \
     $HOME/.deno/bin \
-    $fish_user_paths
+    $PATH
 
 set -x EDITOR /usr/bin/vim
