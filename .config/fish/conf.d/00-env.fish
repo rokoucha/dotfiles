@@ -4,17 +4,6 @@ set USER_PATH \
 
 # For homebrew
 if [ (uname) = "Darwin" ]
-    set -g USER_PATH \
-        /usr/local/opt/coreutils/libexec/gnubin \
-        /usr/local/opt/ed/libexec/gnubin \
-        /usr/local/opt/findutils/libexec/gnubin \
-        /usr/local/opt/gnu-sed/libexec/gnubin \
-        /usr/local/opt/gnu-tar/libexec/gnubin \
-        /usr/local/opt/grep/libexec/gnubin \
-        /usr/local/opt/ruby/bin \
-        /usr/local/bin \
-        /usr/local/sbin
-
     set -g MANPATH \
         /usr/local/opt/coreutils/libexec/gnuman \
         /usr/local/opt/ed/libexec/gnuman \
