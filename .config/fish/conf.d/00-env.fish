@@ -1,6 +1,5 @@
 set -g USER_PATH \
-    $HOME/.local/bin \
-    $HOME/.deno/bin \
+    ~/.local/bin
 
 # For homebrew
 if [ (uname) = "Darwin" ]
@@ -11,7 +10,8 @@ if [ (uname) = "Darwin" ]
         /usr/local/opt/gnu-sed/libexec/gnubin \
         /usr/local/opt/gnu-tar/libexec/gnubin \
         /usr/local/opt/grep/libexec/gnubin \
-        /usr/local/opt/ruby/bin
+        /usr/local/opt/ruby/bin \
+        $USER_PATH
 
     set -g MANPATH \
         /usr/local/opt/coreutils/libexec/gnuman \
