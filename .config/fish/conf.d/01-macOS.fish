@@ -1,6 +1,6 @@
 # For homebrew
 if [ (uname) = "Darwin" ]
-    set -g fish_user_paths \
+    set -g PATH \
         /usr/local/opt/coreutils/libexec/gnubin \
         /usr/local/opt/ed/libexec/gnubin \
         /usr/local/opt/findutils/libexec/gnubin \
@@ -10,7 +10,7 @@ if [ (uname) = "Darwin" ]
         /usr/local/opt/ruby/bin \
         /usr/local/bin \
         /usr/local/sbin \
-        $fish_user_paths
+        $PATH
 
     set -g MANPATH \
         /usr/local/opt/coreutils/libexec/gnuman \
