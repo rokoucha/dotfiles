@@ -4,6 +4,6 @@ function __fzf_ghq_repository_search -d 'Repository search'
 
     ghq list | eval (__fzfcmd) $flags | read select
 
-    [ -n "$select" ]; and cd (ghq root)"/$select"
+    [ -n "$select" ]; and cd (ghq root)"/$select"; and echo
     commandline -f repaint
 end
