@@ -9,6 +9,16 @@ end
 # Load dircolours
 eval (dircolors -c ~/.dircolors)
 
+# Hooks
+function __load_dotenv --on-variable PWD
+    if test -r .env
+        for line in (cat .env)
+            set -l kv (string split -m 1 = -- $line)
+            set -gx $kv
+        end
+    end
+end
+
 # binding
 bind \cg '__fzf_ghq_repository_search'
 bind \cr '__fzf_history_search'
