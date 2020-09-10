@@ -60,7 +60,7 @@ pacmanconf: ## Setup Pacman
 	sed -i -e "s/^PKGEXT=.*$$/PKGEXT='.pkg.tar'/g" /etc/makepkg.conf
 
 mirrorlist: ## Mirrorlist
-	curl -sL "https://www.archlinux.org/mirrorlist/?country=JP&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /etc/pacman.d/mirrorlist
+	curl -sL "https://www.archlinux.org/mirrorlist/?country=JP&ip_version=4&ip_version=6&use_mirror_status=on" > /etc/pacman.d/mirrorlist
 	sed -i -e "s/#Server/Server/g" /etc/pacman.d/mirrorlist
 
 localization: ## Timezone & Language
