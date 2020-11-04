@@ -15,3 +15,8 @@ If you are using Arch Linux, the one-liner will automatically set up while you a
 Details of other commands can be confirmed with the help command.
 
     $ bash -c "$(curl -sL https://dot.rokoucha.net)" -s help
+
+## Dotfiles in Container
+
+    $ docker build -t dotfiles .
+    $ docker run --rm -it dotfiles

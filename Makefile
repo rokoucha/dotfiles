@@ -291,7 +291,7 @@ install-arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 n
 
 install-thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
-install-cli: dircolos vundle zinit zprezto asdf tpm ## Install shell applications
+install-cli: asdf dircolos vundle zinit zprezto tpm ## Install shell applications
 
 ##@ Setup group tasks
 .PHONY: install install-arch-cli install-arch-gui install-thinkpad-a285
