@@ -128,6 +128,9 @@ docker: ## Install Docker
 firefox: ## Install Firefox Developer Edition
 	$(PACMAN_S) firefox-developer-edition firefox-developer-edition-i18n-en-gb
 
+fish: ## Install fish shell
+	$(PACMAN_S) fish
+
 fonts: ## Install Fonts
 	$(YAY_S) fontconfig \
 		adobe-source-code-pro-fonts \
@@ -282,7 +285,7 @@ zprezto: ## Install Prezto
 ##@ Install group tasks
 .PHONY: arch-cli arch-gui thinkpad-a285 cli
 
-install-arch-cli: yay docker git gnupg openssh vim xdg-user-dirs zsh tmux ## Install Arch Linux CLI applications
+install-arch-cli: yay docker git gnupg openssh vim xdg-user-dirs fish zsh tmux ## Install Arch Linux CLI applications
 
 install-arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 networkmanager skk slack xorg yubikey ## Install Arch Linux GUI applications
 
