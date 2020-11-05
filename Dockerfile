@@ -34,6 +34,6 @@ USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
 # Dotfiles
-RUN bash -c "$(curl -sL https://dot.rokoucha.net)" -s setup-arch-cli
+RUN bash -c "$(curl -sL https://dot.rokoucha.net)" -s deploy install-arch-cli install-cli
 
 CMD [ "/usr/bin/fish", "--login" ]
