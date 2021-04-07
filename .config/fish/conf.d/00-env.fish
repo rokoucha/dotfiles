@@ -1,5 +1,6 @@
 set -g USER_PATH \
-    ~/.local/bin
+    ~/.local/bin \
+    ~/.yarn/bin
 
 # For homebrew
 if [ (uname) = "Darwin" ]
