@@ -16,13 +16,22 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'Yggdroot/indentLine'
+Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 filetype plugin indent on
+
+" True colour
+set termguicolors
+set background=dark
+let base16colorspace=256
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+colorscheme base16-monokai
 
 " ; to : (for US Keyboard)
 noremap ; :
@@ -124,5 +133,5 @@ map <silent> [Tag]p :tabprevious<CR>
 " Fir Airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'luna'
+let g:airline_theme = 'base16_monokai'
 
