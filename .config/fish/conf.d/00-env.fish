@@ -1,10 +1,6 @@
-set -g USER_PATH \
-    ~/.local/bin \
-    ~/.yarn/bin
-
 # For homebrew
 if [ (uname) = "Darwin" ]
-    set -g USER_PATH \
+    fish_add_path \
         /usr/local/opt/coreutils/libexec/gnubin \
         /usr/local/opt/ed/libexec/gnubin \
         /usr/local/opt/findutils/libexec/gnubin \
@@ -12,7 +8,6 @@ if [ (uname) = "Darwin" ]
         /usr/local/opt/gnu-tar/libexec/gnubin \
         /usr/local/opt/grep/libexec/gnubin \
         /usr/local/opt/ruby/bin \
-        $USER_PATH
 
     set -g MANPATH \
         /usr/local/opt/coreutils/libexec/gnuman \
@@ -28,8 +23,9 @@ if [ (uname) = "Darwin" ]
     set -x CPPFLAGS "-I/usr/local/opt/ruby/include"
 end
 
-set -g PATH \
-    $USER_PATH \
-    $PATH
+
+fish_add_path \
+    ~/.local/bin \
+    ~/.yarn/bin
 
 set -x EDITOR /usr/bin/vim
