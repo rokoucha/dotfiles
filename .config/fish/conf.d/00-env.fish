@@ -8,6 +8,7 @@ if [ (uname) = "Darwin" ]
         /usr/local/opt/gnu-tar/libexec/gnubin \
         /usr/local/opt/grep/libexec/gnubin \
         /usr/local/opt/ruby/bin \
+        /usr/local/sbin
 
     set -g MANPATH \
         /usr/local/opt/coreutils/libexec/gnuman \
