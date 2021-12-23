@@ -276,7 +276,7 @@ zsh: ## Install Z Shell
 zinit: ## Install Zinit
 	@if [ ! -d $(INSTALL_PATH)/.zinit/bin ]; then \
 		mkdir "$(INSTALL_PATH)/.zinit"; \
-		git clone "https://github.com/zdharma/zinit.git" "$(INSTALL_PATH)/.zinit/bin"; \
+		git clone "https://github.com/zdharma-continuum/zinit.git" "$(INSTALL_PATH)/.zinit/bin"; \
 	fi
 	zsh -i -c "exit"
 
