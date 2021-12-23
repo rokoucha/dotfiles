@@ -24,9 +24,10 @@ if [ (uname) = "Darwin" ]
     set -x CPPFLAGS "-I/usr/local/opt/ruby/include"
 end
 
-
 fish_add_path \
     ~/.local/bin \
     ~/.yarn/bin
 
 set -x EDITOR /usr/bin/vim
+
+set -x GOPATH ~/.go
