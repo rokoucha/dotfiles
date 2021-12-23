@@ -1,11 +1,6 @@
 # Setup asdf
 source ~/.asdf/asdf.fish
 
-# Attach to tmux session
-if test -z $TMUX && status --is-login
-    __tmux_attach_session
-end
-
 # Load dircolours
 eval (dircolors -c ~/.dircolors)
 
