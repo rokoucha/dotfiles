@@ -316,7 +316,7 @@ banner: ## Print a banner
 
 list: banner ## Print a list of dotfiles
 	$(INFO) "Listing dotfiles in $(DOTFILES_PATH)"
-	@$(foreach dotfile,$(DOTFILES),/usr/bin/ls -F "$(dotfile)";)
+	@$(foreach dotfile,$(DOTFILES),/usr/bin/env ls -F "$(dotfile)";)
 
 update: banner ## Update dotfiles
 	$(INFO) "Update dotfiles"
