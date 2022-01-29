@@ -1,27 +1,34 @@
 # For homebrew
 if [ (uname) = "Darwin" ]
-    fish_add_path \
-        /usr/local/opt/coreutils/libexec/gnubin \
-        /usr/local/opt/ed/libexec/gnubin \
-        /usr/local/opt/findutils/libexec/gnubin \
-        /usr/local/opt/gnu-sed/libexec/gnubin \
-        /usr/local/opt/gnu-tar/libexec/gnubin \
-        /usr/local/opt/grep/libexec/gnubin \
-        /usr/local/opt/ruby/bin \
-        /usr/local/sbin
+    switch (uname -m)
+    case x86_64
+        fish_add_path \
+            /usr/local/opt/coreutils/libexec/gnubin \
+            /usr/local/opt/ed/libexec/gnubin \
+            /usr/local/opt/findutils/libexec/gnubin \
+            /usr/local/opt/gnu-sed/libexec/gnubin \
+            /usr/local/opt/gnu-tar/libexec/gnubin \
+            /usr/local/opt/grep/libexec/gnubin \
+            /usr/local/opt/ruby/bin \
+            /usr/local/sbin
 
-    set -g MANPATH \
-        /usr/local/opt/coreutils/libexec/gnuman \
-        /usr/local/opt/ed/libexec/gnuman \
-        /usr/local/opt/findutils/libexec/gnuman \
-        /usr/local/opt/gnu-sed/libexec/gnuman \
-        /usr/local/opt/gnu-tar/libexec/gnuman \
-        /usr/local/opt/grep/libexec/gnuman \
-        /usr/local/share/man \
-        $MANPATH
+        set -g MANPATH \
+            /usr/local/opt/coreutils/libexec/gnuman \
+            /usr/local/opt/ed/libexec/gnuman \
+            /usr/local/opt/findutils/libexec/gnuman \
+            /usr/local/opt/gnu-sed/libexec/gnuman \
+            /usr/local/opt/gnu-tar/libexec/gnuman \
+            /usr/local/opt/grep/libexec/gnuman \
+            /usr/local/share/man \
+            $MANPATH
 
-    set -x LDFLAGS "-L/usr/local/opt/ruby/lib"
-    set -x CPPFLAGS "-I/usr/local/opt/ruby/include"
+        set -x LDFLAGS "-L/usr/local/opt/ruby/lib"
+        set -x CPPFLAGS "-I/usr/local/opt/ruby/include"
+    case arm64
+        fish_add_path \
+            /opt/homebrew/opt/coreutils/libexec/gnubin \
+            /opt/homebrew/bin
+    end
 end
 
 fish_add_path \
