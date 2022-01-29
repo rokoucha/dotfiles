@@ -5,7 +5,7 @@ source ~/.asdf/asdf.fish
 eval (dircolors -c ~/.dircolors)
 
 # Hooks
-function __load_dotenv --on-variable PWD
+function dotenv --on-variable PWD
   if test -r .env
     for line in (cat .env)
       set -l matches (string match -r "^\s*(?:export\s+)?([\w\d_]+)=['\"]?(.*?)['\"]?(?:\s+#.+)?\$" "$line")
