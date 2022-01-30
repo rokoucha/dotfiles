@@ -273,18 +273,8 @@ yubikey: ## Install YubiKey tools
 zsh: ## Install Z Shell
 	$(YAY_S) fzf ghq powerline shellcheck zsh
 
-zinit: ## Install Zinit
-	@if [ ! -d $(INSTALL_PATH)/.zinit/bin ]; then \
-		mkdir "$(INSTALL_PATH)/.zinit"; \
-		git clone "https://github.com/zdharma-continuum/zinit.git" "$(INSTALL_PATH)/.zinit/bin"; \
-	fi
-	zsh -i -c "exit"
-
-zprezto: ## Install Prezto
-	@$(LN) "$(INSTALL_PATH)/.zinit/plugins/sorin-ionescu---prezto" "$(INSTALL_PATH)/.zprezto"
-
 ##@ Install group tasks
-.PHONY: arch-cli arch-gui thinkpad-a285 cli
+.PHONY: install-arch-cli install-arch-gui install-thinkpad-a285 install-cli
 
 install-arch-cli: yay docker git gnupg openssh vim xdg-user-dirs fish zsh tmux ## Install Arch Linux CLI applications
 
@@ -292,10 +282,10 @@ install-arch-gui: audio bluetooth code cups discord firefox fonts gui-tools i3 n
 
 install-thinkpad-a285: opal radeon ## Install driver and tools for ThinkPad A285
 
-install-cli: asdf dircolos vundle zinit zprezto tpm ## Install shell applications
+install-cli: asdf dircolos vundle tpm ## Install shell applications
 
 ##@ Setup group tasks
-.PHONY: install install-arch-cli install-arch-gui install-thinkpad-a285
+.PHONY: setup setup-arch-cli setup-arch-gui setup-thinkpad-a285
 
 setup: deploy install-cli execshell ## Setup CLI envirpnment
 
