@@ -334,9 +334,9 @@ clean: banner ## Clean dotfiles in INSTALL_PATH
 clean-broken-link: ## Cleaning broken links in INSTALL_PATH
 	$(INFO) "Cleaning broken links in $(INSTALL_PATH)"
 	@find -L $(INSTALL_PATH)/.zsh -type l
-	@find -L $(INSTALL_PATH)/.zsh -type l -delete
+	@find -L $(INSTALL_PATH)/.zsh -type l -exec rm {} +
 	@find -L $(INSTALL_PATH)/.config -type l
-	@find -L $(INSTALL_PATH)/.config -type l -delete
+	@find -L $(INSTALL_PATH)/.config -type l -exec rm {} +
 
 execshell: ## Reboot shell
 	$(INFO) "Successfully completed! Rebooting shell..."
