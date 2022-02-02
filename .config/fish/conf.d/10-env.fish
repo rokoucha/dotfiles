@@ -32,8 +32,7 @@ if [ (uname) = "Darwin" ]
 end
 
 fish_add_path \
-    ~/.local/bin \
-    ~/.yarn/bin
+    ~/.local/bin
 
 set -x EDITOR /usr/bin/vim
 
