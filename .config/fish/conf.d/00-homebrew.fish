@@ -2,6 +2,8 @@
 if [ (uname) = "Darwin" ]
     switch (uname -m)
     case x86_64
+        eval (/usr/local/bin/brew shellenv)
+
         fish_add_path \
             /usr/local/opt/coreutils/libexec/gnubin \
             /usr/local/opt/ed/libexec/gnubin \
@@ -9,8 +11,7 @@ if [ (uname) = "Darwin" ]
             /usr/local/opt/gnu-sed/libexec/gnubin \
             /usr/local/opt/gnu-tar/libexec/gnubin \
             /usr/local/opt/grep/libexec/gnubin \
-            /usr/local/opt/ruby/bin \
-            /usr/local/sbin
+            /usr/local/opt/ruby/bin
 
         set -g MANPATH \
             /usr/local/opt/coreutils/libexec/gnuman \
@@ -25,15 +26,9 @@ if [ (uname) = "Darwin" ]
         set -x LDFLAGS "-L/usr/local/opt/ruby/lib"
         set -x CPPFLAGS "-I/usr/local/opt/ruby/include"
     case arm64
+        eval (/opt/homebrew/bin/brew shellenv)
+
         fish_add_path \
-            /opt/homebrew/opt/coreutils/libexec/gnubin \
-            /opt/homebrew/bin
+            /opt/homebrew/opt/coreutils/libexec/gnubin
     end
 end
-
-fish_add_path \
-    ~/.local/bin
-
-set -x EDITOR /usr/bin/vim
-
-set -x GOPATH ~/.go
