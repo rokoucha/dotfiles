@@ -10,7 +10,7 @@ endef
 export BANNER
 
 # Settings
-EXCLUSION := .git/\* docker-compose.yml Dockerfile LICENSE Makefile README.md .gitignore
+EXCLUSION := .git/\* docker-compose.yml Dockerfile LICENSE Makefile README.md .gitignore Brewfile
 USERNAME := rokoucha
 
 # System variable
