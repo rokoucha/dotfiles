@@ -11,7 +11,10 @@ if [ (uname) = "Darwin" ]
             /usr/local/opt/gnu-sed/libexec/gnubin \
             /usr/local/opt/gnu-tar/libexec/gnubin \
             /usr/local/opt/grep/libexec/gnubin \
-            /usr/local/opt/ruby/bin
+            /usr/local/opt/ruby/bin \
+            /usr/local/opt/openjdk@11/bin \
+            /usr/local/Cellar/node/17.4.0/bin \
+            /usr/local/sbin
 
         set -g MANPATH \
             /usr/local/opt/coreutils/libexec/gnuman \
