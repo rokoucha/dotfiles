@@ -33,5 +33,7 @@ if [ (uname) = "Darwin" ]
 
         fish_add_path \
             /opt/homebrew/opt/coreutils/libexec/gnubin
+
+        source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"  > /dev/null 2> /dev/null
     end
 end

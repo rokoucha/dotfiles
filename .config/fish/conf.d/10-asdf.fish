@@ -1,2 +1,1 @@
-# Setup asdf
-source ~/.asdf/asdf.fish
+source ~/.asdf/asdf.fish  > /dev/null 2> /dev/null
