@@ -12,26 +12,27 @@ brew "fish"
 brew "fzf"
 brew "ghq"
 brew "git"
+brew "go"
+brew "imagemagick"
 brew "mas"
 brew "tmux"
 brew "tree"
 brew "vim"
 cask "1password"
 cask "altair-graphql-client"
+cask "aquaskk"
 cask "bettertouchtool"
 cask "brewlet"
+cask "discord"
 cask "docker"
 cask "figma"
 cask "firefox"
 cask "google-chrome"
+cask "google-drive"
 cask "insomnia"
 cask "iterm2"
 cask "jetbrains-toolbox"
 cask "karabiner-elements"
-cask "microsoft-auto-update"
-cask "microsoft-excel"
-cask "microsoft-powerpoint"
-cask "microsoft-word"
 cask "mimestream"
 cask "notion"
 cask "postico"
@@ -49,6 +50,3 @@ mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "OctoLinker", id: 1549308269
 mas "Pages", id: 409201541
-mas "uBlacklist for Safari", id: 1547912640
-mas "Wipr", id: 1320666476
-mas "Yubico Authenticator", id: 1497506650
