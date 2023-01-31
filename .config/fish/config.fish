@@ -15,7 +15,7 @@ end
 dotenv
 
 # start sway
-if which sway > /dev/null && test -z $DISPLAY && test "$(tty)" = "/dev/tty1"
+if which sway &> /dev/null && test -z $DISPLAY && test "$(tty)" = "/dev/tty1"
     set -x MOZ_ENABLE_WAYLAND 1 
     set -x GTK_IM_MODULE fcitx
     set -x QT_IM_MODULE fcitx
