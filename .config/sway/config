@@ -30,7 +30,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 ### Autostart
 exec --no-startup-id fcitx5 -d
-exec wvkbd-mobintl --hidden --landscape-layers 'full,nav' -L 300
+exec wvkbd-mobintl --hidden --landscape-layers 'simple,specialpad' -L 300
 
 ### Output configuration
 #
