@@ -7,7 +7,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod4
+set $mod Mod1
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -18,7 +18,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu j4-dmenu-desktop --dmenu='bemenu -i -H 30 --fn "sans-serif 14"' --no-exec | xargs swaymsg exec --
+set $menu killall bemenu || true && j4-dmenu-desktop --dmenu='bemenu -i -H 30 --fn "sans-serif 14"' --no-exec | xargs swaymsg exec --
 # Lock
 set $lock swaylock
 bindswitch --reload --locked lid:on exec $lock
@@ -30,6 +30,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 ### Autostart
 exec --no-startup-id fcitx5 -d
+exec wvkbd-mobintl --hidden --landscape-layers 'full,nav' -L 300
 
 ### Output configuration
 #
@@ -41,7 +42,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output eDP-1 scale 1.5
+output DSI-1 scale 1.5
 
 ### Idle configuration
 #
@@ -72,11 +73,6 @@ output eDP-1 scale 1.5
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input type:touchpad {
-    tap enabled
-    natural_scroll enabled
-    scroll_factor 0.5
-}
 input "type:keyboard" {
     xkb_layout us
     xkb_options ctrl:nocaps
@@ -94,6 +90,7 @@ input "type:keyboard" {
 
     # Start your launcher
     bindsym $mod+r exec $menu
+    bindsym Super_L exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
