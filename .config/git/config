@@ -24,6 +24,4 @@
 
 [init]
     defaultBranch = master
-[user]
-	email = git@github.com
-	name = Rokoucha
+
