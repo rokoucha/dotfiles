@@ -16,12 +16,19 @@
 [ghq "https://github.com/"]
     vcs = git
 
-[include]
-    path = config.local
-
 [alias]
     tree = log --graph --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
 
 [init]
     defaultBranch = main
+
+[push]
+    autoSetupRemote = true
+
+[user]
+    name = Rokoucha
+    email = 6058487+rokoucha@users.noreply.github.com
+
+[include]
+    path = config.local
 
