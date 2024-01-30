@@ -32,3 +32,5 @@
 [include]
     path = config.local
 
+[pull]
+	ff = only
