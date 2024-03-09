@@ -34,9 +34,6 @@ INFO := @echo "===>"
 LN := /usr/bin/env ln -sfv
 
 ##@ Application tasks
-asdf: ## Install asdf-vm
-	git clone https://github.com/asdf-vm/asdf.git "$(INSTALL_PATH)/.asdf"
-
 dircolors: ## Install Monokai theme for dircolors
 	curl -sL "https://raw.githubusercontent.com/jtheoof/dotfiles/master/dircolors.monokai" > "$(INSTALL_PATH)/.dircolors"
 
@@ -58,7 +55,7 @@ vundle: ## Install Vundle
 ##@ Install group tasks
 .PHONY: install
 
-install: deploy asdf dircolors vundle tpm execshell ## Setup CLI envirpnment
+install: deploy dircolors vundle tpm execshell ## Setup CLI envirpnment
 
 ##@ Management tasks
 .PHONY: dotpath banner list update deploy upgrade clean clean-broken-link execshell debug help
