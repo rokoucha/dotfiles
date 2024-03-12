@@ -1,2 +1,4 @@
 [user]
+    name = Your Name
+    email = mail@example.com
     signingkey = 12345678AB
