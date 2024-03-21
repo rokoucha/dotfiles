@@ -24,16 +24,10 @@
 
 [push]
     autoSetupRemote = true
-
-[user]
-    name = Rokoucha
-    email = 6058487+rokoucha@users.noreply.github.com
-
-[include]
-    path = config.local
+	default = current
 
 [pull]
-	ff = only
+    ff = only
 
 [include]
     path = config.local
