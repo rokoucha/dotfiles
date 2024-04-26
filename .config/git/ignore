@@ -374,3 +374,6 @@ zsdoc/data
 !/tests/_output/.gitkeep
 
 # End of https://www.toptal.com/developers/gitignore/api/fish,git,intellij,intellij+all,intellij+iml,linux,macos,visualstudiocode,windows,zsh
+
+.vscode-ctags
+
