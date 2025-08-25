@@ -1,0 +1,11 @@
+font-family = "DejaVuSansM Nerd Font Mono"
+font-size = 14
+theme = "Monokai Classic"
+cursor-style = block
+cursor-style-blink = false
+background-opacity = 0.9
+background-blur = 20
+window-height = 36
+window-width = 120
+shell-integration-features = no-cursor
+auto-update = download
