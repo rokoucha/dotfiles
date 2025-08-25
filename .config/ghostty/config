@@ -1,6 +1,6 @@
-font-family = "DejaVuSansM Nerd Font Mono"
+font-family = DejaVuSansM Nerd Font Mono
 font-size = 14
-theme = "Monokai Classic"
+theme = monokai-dark
 cursor-style = block
 cursor-style-blink = false
 background-opacity = 0.9
