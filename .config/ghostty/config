@@ -9,3 +9,5 @@ window-height = 36
 window-width = 120
 shell-integration-features = no-cursor
 auto-update = download
+keybind = option+backspace=text:\x1b\x7f
+
