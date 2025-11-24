@@ -1,7 +1,3 @@
-# load dircolours
-eval (dircolors -c ~/.dircolors)
-
-# binding
 bind \cg '__fzf_ghq_repository_search'
 bind \cr '__fzf_history_search'
 bind \t '__fzf_complete'

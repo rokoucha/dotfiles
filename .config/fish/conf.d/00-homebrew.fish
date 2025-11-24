@@ -1,4 +1,3 @@
-# For homebrew
 if [ (uname) = "Darwin" ]
     eval (/opt/homebrew/bin/brew shellenv)
 
