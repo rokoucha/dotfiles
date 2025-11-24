@@ -1,3 +1,9 @@
+# direnv
+if type -q direnv
+    direnv hook fish | source
+end
+
+# key bindings
 bind \cg '__fzf_ghq_repository_search'
 bind \cr '__fzf_history_search'
 bind \t '__fzf_complete'
