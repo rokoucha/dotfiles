@@ -1,75 +1,54 @@
-tap "homebrew/bundle"
-tap "homebrew/cask-versions"
-tap "homebrew/services"
-brew "actionlint"
-brew "giflib"
-brew "libpng"
-brew "openssl@3"
-brew "awscli"
-brew "cloud-sql-proxy"
-brew "cocoapods"
+tap "k0sproject/tap"
 brew "node"
 brew "corepack"
-brew "ctags"
+brew "coreutils"
 brew "curl"
-brew "exiftool"
-brew "ffmpeg"
+brew "direnv"
 brew "fish"
 brew "fzf"
 brew "ghq"
 brew "git"
 brew "go"
-brew "golangci-lint"
-brew "imagemagick"
-brew "ios-webkit-debug-proxy"
-brew "jpeg"
+brew "helm"
+brew "kubernetes-cli"
 brew "mas"
 brew "mise"
-brew "mtr"
-brew "mysql-client"
-brew "openjdk"
-brew "python@3.10"
-brew "redis"
-brew "shellcheck"
-brew "smartmontools"
-brew "sqlfluff"
 brew "terraform"
 brew "tmux"
-brew "tree"
 brew "vim"
+brew "k0sproject/tap/k0sctl"
 cask "1password"
-cask "altair-graphql-client"
-cask "applite"
-cask "aquaskk"
-cask "bettertouchtool"
+cask "amazon-photos"
 cask "brewlet"
 cask "discord"
-cask "docker"
-cask "figma"
-cask "firefox"
+cask "docker-desktop"
+cask "font-dejavu-sans-mono-nerd-font"
+cask "ghostty"
+cask "github-copilot-for-xcode"
 cask "google-chrome"
-cask "google-cloud-sdk"
-cask "google-drive"
-cask "iterm2"
 cask "jetbrains-toolbox"
-cask "karabiner-elements"
-cask "keystore-explorer"
+cask "macskk"
 cask "neat"
-cask "postico"
-cask "postman"
 cask "qblocker"
 cask "scroll-reverser"
 cask "secretive"
-cask "sequel-ace"
-cask "slack"
+cask "spotify"
 cask "stats"
+cask "synology-drive"
 cask "visual-studio-code"
-cask "yubico-authenticator"
-cask "zoom"
 mas "1Password for Safari", id: 1569813296
+mas "Dictionaries", id: 1380563956
 mas "Grammarly for Safari", id: 1462114288
-mas "Tampermonkey", id: 1482490089
-mas "Toggl Track", id: 1291898086
+mas "Keepa - Price Tracker", id: 1533805339
+mas "Kindle", id: 302584613
+mas "LINE", id: 539883307
+mas "Max Inspect", id: 1438113612
+mas "Perplexity", id: 6714467650
+mas "Tailscale", id: 1475387142
+mas "Tampermonkey", id: 6738342400
+mas "Telegram", id: 747648890
+mas "Todoist", id: 585829637
 mas "uBlacklist for Safari", id: 1547912640
-mas "Wipr", id: 1320666476
+mas "uBlock Origin Lite", id: 6745342698
 mas "Xcode", id: 497799835
+mas "Yubico Authenticator", id: 1497506650
