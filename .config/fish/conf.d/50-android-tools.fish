@@ -6,3 +6,6 @@ if [ -d /opt/homebrew/opt/opejdk/bin ]
     fish_add_path /opt/homebrew/opt/openjdk/bin
 end
 
+if [ -d "/Users/rokoucha/Library/Application Support/JetBrains/Toolbox/scripts" ]
+    fish_add_path "/Users/rokoucha/Library/Application Support/JetBrains/Toolbox/scripts"
+end
