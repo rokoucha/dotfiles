@@ -1,0 +1,13 @@
+# GIT_CONFIG_GLOBAL=/Users/rokoucha/.config/git/config.codingagent
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+
+[url "https://github.com"]
+    insteadOf = ssh://git@github.com
+
+[url "https://github.com"]
+    insteadOf = git@github.com
+
+[include]
+    path = config
