@@ -24,7 +24,9 @@
 
 [push]
     autoSetupRemote = true
-	default = current
+
+[branch]
+    autoSetupMerge = false
 
 [pull]
     ff = only
