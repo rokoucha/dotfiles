@@ -10,6 +10,14 @@
     interactive = auto
     grep = auto
 
+[credential]
+    helper = 
+    helper = !git-credential-manager
+
+[url "https://github.com/"]
+    insteadOf = ssh://git@github.com/
+    insteadOf = git@github.com:
+
 [ghq]
     root = ~/Projects
 
