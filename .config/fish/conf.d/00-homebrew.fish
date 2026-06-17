@@ -3,7 +3,6 @@ if [ (uname) = "Darwin" ]
 
     fish_add_path \
         /opt/homebrew/opt/coreutils/libexec/gnubin \
-        /opt/homebrew/opt/mysql-client@8.0/bin \
         /opt/homebrew/opt/openjdk/bin \
         /opt/homebrew/opt/python3/libexec/bin \
         /opt/homebrew/opt/ruby/bin
