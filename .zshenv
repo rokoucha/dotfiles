@@ -1,14 +1,9 @@
 #!/bin/sh
 # For homebrew
 if [ "$(uname)" = "Darwin" ]; then
-    case "$(uname -m)" in
-        x86_64)
-            eval "$(/usr/local/bin/brew shellenv)"
-            ;;
-        arm64)
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-            ;;
-    esac
+    eval "$(SHELL=/bin/zsh /opt/homebrew/bin/brew shellenv)"
+
+    export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 fi
 
 # For Git signing
